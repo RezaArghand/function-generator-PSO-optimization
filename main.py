@@ -1,6 +1,3 @@
-# python implementation of particle swarm optimization (PSO)
-# minimizing rastrigin and sphere function
-
 import random
 import math  # cos() for Rastrigin
 import copy  # array-copying convenience
@@ -39,7 +36,10 @@ def fitness_sphere(position):
 
 
 def fitness_test(position):
-    result = costF.fitness_rasa(position)
+    input = []
+    for i in position:
+        input.append(int(math.floor(i)))
+    result = costF.costNumber(input)
     return result
 
 
@@ -53,10 +53,10 @@ class Particle:
         self.rnd = random.Random(seed)
 
         # initialize position of the particle with 0.0 value
-        self.position = [0.0 for i in range(dim)]
+        self.position = [random.uniform(minx, maxx) for i in range(dim)]
 
         # initialize velocity of the particle with 0.0 value
-        self.velocity = [0.0 for i in range(dim)]
+        self.velocity = [random.uniform(minx, maxx) for i in range(dim)]
 
         # initialize best particle position of the particle with 0.0 value
         self.best_part_pos = [0.0 for i in range(dim)]
@@ -106,13 +106,13 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
 
         # after every 10 iterations
         # print iteration number and best fitness value so far
-        if Iter % 100 == 0 and Iter > 1:
+        if Iter % 5 == 0:
             print("Iter = " + str(Iter) + " best fitness = %.15f" %
                   best_swarm_fitnessVal)
             # print(best_swarm_pos)
             best_Possition = [math.floor(i) for i in best_swarm_pos]
             print(best_Possition)
-
+            print(costF.bestFunc(best_Possition))
         for i in range(n):  # process each particle
 
             # compute new velocity of curr particle
@@ -139,9 +139,9 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                 swarm[i].position[k] += swarm[i].velocity[k]
 
                 if swarm[i].position[k] < minx:
-                    swarm[i].position[k] = minx * random.random()
+                    swarm[i].position[k] = minx
                 elif swarm[i].position[k] > maxx:
-                    swarm[i].position[k] = maxx * random.random()
+                    swarm[i].position[k] = maxx
 
             # compute fitness of new position
             swarm[i].fitness = fitness(swarm[i].position)
@@ -198,7 +198,7 @@ print("\nPSO completed\n")
 print("\nBest variables:")
 print([math.floor(best_position[k]) for k in range(dim)])
 fitnessVal = fitness(best_position)
-print("fitness of best variables = " + str(fitnessVal))
+print("cost of best variables = " + str(fitnessVal))
 end_time = time()
 full_time = end_time - start_time
 print("The time consumed = " + str(full_time // 60) + " minutes " + str(full_time % 60) + " seconds ")

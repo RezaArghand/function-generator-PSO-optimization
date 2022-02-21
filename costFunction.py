@@ -1,14 +1,76 @@
 import math
+import random
+import numpy as np
+import parameters as par
+import sympy as sp
+import functions as func
+from scipy.stats import logistic
+
+mainList = par.finalLib
+x0 = sp.symbols("x0")
 
 
-def fitness_rasa(position):
-    sumVal = 0.0
-    crossVal = 1
-    for i in range(len(position)):
-        xi = math.floor(position[i])
-        sumVal += xi
-        crossVal = crossVal * xi
+def mainCost(position):
+    theString = ''
 
-    result = abs(1 / (1 + crossVal)) + 100 * abs(sumVal - 500)
+    for i in position:
+        theString += mainList[i]
 
+    if 'x0' in theString:
+        try:
+            # if 'x0' in theString:
+            #     theString += ''
+            # else:
+            #     theString += '-x0*5000'
+            finalString = func.makeBalanced(theString)
+            mainFunc = eval(finalString)
+            # print(mainFunc)
+            firstCost = abs(func.evalFunction(0, finalString) - 1) + abs(func.evalFunction(5, finalString) - 11)
+            # print(firstCost)
+            steps = 100
+            maxY = 5
+            dx = maxY / steps
+            secondCost = 0
+
+            for i in range(0, steps):
+                xx = dx * i
+                f1 = (func.evalFunction(xx + dx, finalString) - func.evalFunction(xx, finalString)) ** 2
+                f2 = dx ** 2
+                f3 = np.sqrt(f1 + f2)
+                secondCost = secondCost + f3
+
+            result = (100 * firstCost + abs(secondCost))
+
+        except:
+            result = 1000
+            mainFunc = func.makeBalanced(theString)
+    else:
+
+        result = 5000
+        mainFunc = "there is no valid function"
+
+    return result, mainFunc
+
+
+def costNumber(positon):
+    final, funn = mainCost(positon)
+    return final
+
+
+def bestFunc(position):
+    final, funn = mainCost(position)
+    result = "y = " + str(funn)
     return result
+
+
+# pp = [1, 19, 11, 9, 24]
+#
+# print(str(bestFunc(pp)))
+
+x = sp.symbols("x")
+
+x = 2
+h = eval('4*x')
+print(h)
+# print(func.sigmoid(5.6))
+# print(sp.N(sp.tan(7 - sp.cos(8))))
