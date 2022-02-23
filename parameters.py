@@ -1,30 +1,35 @@
-import random
 import functions as func
-import math
 
 number_of_function_variables = 1  # result function's variable count
 # function library
-funcLib = ['sp.sin(x0)', 'sp.cos(x0)', 'sp.tan(x0)', 'sp.cot(x0)', 'sp.exp(x0)', 'sp.sqrt(x0)', 'x0']
-operators = ['*', '/', '+', '-', '**']
-variables = func.variableMaker(number_of_function_variables)
+funcLib = ['sp.sin(', 'sp.cos(', 'sp.tan(', 'sp.cot(', 'sp.exp(', 'sp.sqrt(', 'x0']
+operators = ['*', '/', '+', '-', '**', ')']
 realNum = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
-nothing = ['', '']
-finalLib = funcLib + nothing
+nothing = ['']
+maxVariable, newFuncLib, newOperators, newRealNum = func.normalizeLength(funcLib, operators, realNum)
+maxVariable += 1
+finalLib = nothing + newFuncLib + newOperators + newRealNum
+print(finalLib)
 # end function library
 # print(finalLib.index(')'))
 
 # parameters of PSO optimization algorithm
-number_of_particles = 120  # particle count
-
-varNum = 10  # variable count
+number_of_particles = 50  # particle count
+# firstNumCount = 5
+# secondNumCount = 5
+# functionNum = 1
+# firstOperationNum = 1
+# secondOperationNum = 1
+# thirdOperation = 1
+varNum = 8
 damping_rate_W = 0.9  # inertia damper
 max_of_variable = len(finalLib) - 1  # max domain
 min_of_variable = 0  # min domain
 satisfaction_cost_number = 1.0e-200  # satisfaction point
-W = 0.95  # inertia
-C1 = 1.8  # cognitive (particle)
-C2 = 2.4  # social (swarm)
-max_iteration_number = 10000  # max iteration
+W = 0.99  # inertia
+C1 = 0.8  # cognitive (particle)
+C2 = 1.1  # social (swarm)
+max_iteration_number = 150000  # max iteration
 # end parameters of PSO optimization
 
 # ll = [1, 1, 1, 1, 1, 1]

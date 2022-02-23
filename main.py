@@ -53,13 +53,13 @@ class Particle:
         self.rnd = random.Random(seed)
 
         # initialize position of the particle with 0.0 value
-        self.position = [random.uniform(minx, maxx) for i in range(dim)]
+        self.position = [random.randint(minx, maxx) for i in range(dim)]
 
         # initialize velocity of the particle with 0.0 value
-        self.velocity = [random.uniform(minx, maxx) for i in range(dim)]
+        self.velocity = [random.randint(minx, maxx) for i in range(dim)]
 
         # initialize best particle position of the particle with 0.0 value
-        self.best_part_pos = [0.0 for i in range(dim)]
+        self.best_part_pos = [random.randint(minx, maxx) for i in range(dim)]
 
         # loop dim times to calculate random position and velocity
         # range of position and velocity is [minx, max]
@@ -90,7 +90,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
     swarm = [Particle(fitness, dim, minx, maxx, i) for i in range(n)]
 
     # compute the value of best_position and best_fitness in swarm
-    best_swarm_pos = [0.0 for i in range(dim)]
+    best_swarm_pos = [random.randint(minx, maxx) for i in range(dim)]
     best_swarm_fitnessVal = sys.float_info.max  # swarm best
 
     # computer best particle of swarm and it's fitness
@@ -106,13 +106,14 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
 
         # after every 10 iterations
         # print iteration number and best fitness value so far
-        if Iter % 5 == 0:
+        if Iter % 10 == 0:
             print("Iter = " + str(Iter) + " best fitness = %.15f" %
                   best_swarm_fitnessVal)
             # print(best_swarm_pos)
             best_Possition = [math.floor(i) for i in best_swarm_pos]
             print(best_Possition)
             print(costF.bestFunc(best_Possition))
+
         for i in range(n):  # process each particle
 
             # compute new velocity of curr particle
@@ -155,7 +156,14 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             if swarm[i].fitness < best_swarm_fitnessVal:
                 best_swarm_fitnessVal = swarm[i].fitness
                 best_swarm_pos = copy.copy(swarm[i].position)
+        if Iter % 500 == 0:
+            for i in range(n):
+                for k in range(dim):
+                    swarm[i].position[k] = random.randint(minx, maxx)
+                    swarm[i].velocity[k] = random.randint(minx, maxx)
+            # for k in range(dim):
 
+            # swarm[random.randint(0,n)].position[]
         fitnessPlot.append(best_swarm_fitnessVal)
         iterPlot.append(Iter)
 
@@ -204,10 +212,11 @@ full_time = end_time - start_time
 print("The time consumed = " + str(full_time // 60) + " minutes " + str(full_time % 60) + " seconds ")
 print()
 print()
-
+iterP = iterPlot[100:]
+fitnessP = fitnessPlot[100:]
 fig = plt.figure(1)  # identifies the figure
 plt.title("cost function", fontsize='16')  # title
-plt.plot(iterPlot, fitnessPlot)  # plot the points
+plt.plot(iterP, fitnessP)  # plot the points
 plt.xlabel("iteration", fontsize='13')  # adds a label in the x axis
 plt.ylabel("cost function", fontsize='13')  # adds a label in the y axis
 # plt.legend(('YvsX'), loc='best')  # creates a legend to identify the plot

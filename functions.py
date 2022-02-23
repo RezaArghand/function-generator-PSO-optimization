@@ -52,4 +52,14 @@ def evalFunction(x0, function):
     result = eval(function)
     return result
 
-# print(sigmoid(5.7))
+
+def normalizeLength(f1, f2, f3):
+    length1 = len(f1)
+    length2 = len(f2)
+    length3 = len(f3)
+    nothing = ['']
+    maxLen = max(length1, length3, length2)
+    newF1 = (maxLen // length1) * f1 + (maxLen % length1) * nothing
+    newF2 = (maxLen // length2) * f2 + (maxLen % length2) * nothing
+    newF3 = (maxLen // length3) * f3 + (maxLen % length3) * nothing
+    return maxLen, newF1, newF2, newF3
