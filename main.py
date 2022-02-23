@@ -156,7 +156,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             if swarm[i].fitness < best_swarm_fitnessVal:
                 best_swarm_fitnessVal = swarm[i].fitness
                 best_swarm_pos = copy.copy(swarm[i].position)
-        if Iter % 500 == 0:
+        if Iter % 150 == 0:
             for i in range(n):
                 for k in range(dim):
                     swarm[i].position[k] = random.randint(minx, maxx)

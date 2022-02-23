@@ -6,18 +6,19 @@ import sympy as sp
 import functions as func
 from scipy.stats import logistic
 
-mainList = par.finalLib
 x0 = sp.symbols("x0")
 
 
 def mainCost(position):
     theString = []
-
+    mainList = par.finalLib
     for i in position:
         theString.append(mainList[i])
-    finalString = "".join(func.makeBalanced(theString))
+    # finalString = "".join(func.makeBalanced(theString))
+    sstring = "".join(theString)
+    finalString = func.makeBalanced(sstring)
 
-    if ('x0' in theString):
+    if (finalString.find("x0") > 0):
         try:
             # if 'x0' in theString:
             #     theString += ''
@@ -43,7 +44,7 @@ def mainCost(position):
             #     secondCost = secondCost + f3
             #
             # result = (100 * firstCost + abs(secondCost)) / 1000
-            result = firstCost * 100
+            result = firstCost
         except:
             result = 10000
             mainFunc = func.makeBalanced(theString)

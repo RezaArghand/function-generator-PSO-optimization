@@ -8,7 +8,7 @@ realNum = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
 nothing = ['']
 maxVariable, newFuncLib, newOperators, newRealNum = func.normalizeLength(funcLib, operators, realNum)
 maxVariable += 1
-finalLib = nothing + newFuncLib + newOperators + newRealNum
+finalLib = newFuncLib + newOperators + newRealNum
 print(finalLib)
 # end function library
 # print(finalLib.index(')'))
@@ -21,7 +21,7 @@ number_of_particles = 50  # particle count
 # firstOperationNum = 1
 # secondOperationNum = 1
 # thirdOperation = 1
-varNum = 8
+varNum = 8  # number of parameters in each particle
 damping_rate_W = 0.9  # inertia damper
 max_of_variable = len(finalLib) - 1  # max domain
 min_of_variable = 0  # min domain
