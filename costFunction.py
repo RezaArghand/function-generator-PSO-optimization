@@ -18,38 +18,36 @@ def mainCost(position):
     sstring = "".join(theString)
     finalString = func.makeBalanced(sstring)
 
-    if (finalString.find("x0") > 0):
+    if ("x0" in finalString):
         try:
             # if 'x0' in theString:
             #     theString += ''
             # else:
             #     theString += '-x0*5000'
 
-            mainFunc = eval(finalString)
+            mainFunc = finalString  # eval(finalString)
             # print(mainFunc)
-            firstCost = abs(func.evalFunction(1, finalString) - 1) + abs(
-                func.evalFunction(4, finalString) - 2) + abs(
-                func.evalFunction(16, finalString) - 4)
+            firstCost = abs(func.evalFunction(1, finalString) - 3) + abs(
+                func.evalFunction(5, finalString) - 11)
             # print(firstCost)
-            steps = 100
+            steps = 1000
             maxY = 5
             dx = maxY / steps
             secondCost = 0
 
-            # for i in range(0, steps):
-            #     xx = dx * i
-            #     f1 = (func.evalFunction(xx + dx, finalString) - func.evalFunction(xx, finalString)) ** 2
-            #     f2 = dx ** 2
-            #     f3 = np.sqrt(f1 + f2)
-            #     secondCost = secondCost + f3
-            #
-            # result = (100 * firstCost + abs(secondCost)) / 1000
-            result = firstCost
+            for i in range(0, steps):
+                xx = dx * i
+                f1 = ((func.evalFunction(xx + dx, finalString)) - (func.evalFunction(xx, finalString))) ** 2
+                f2 = dx ** 2
+                f3 = np.sqrt(f1 + f2)
+                secondCost = secondCost + f3
+
+            result = (firstCost + abs(secondCost - 11.18) / 10)
+            # result = firstCost
         except:
             result = 10000
-            mainFunc = func.makeBalanced(theString)
+            mainFunc = finalString
     else:
-
         result = 15000
         mainFunc = "there is no valid function"
 
