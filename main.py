@@ -182,7 +182,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
         if Iter % 1500 == 0:
             w = Par.W
 
-        if Iter % 50 == 0 or Iter == 10:
+        if Iter % 10 == 0 and Iter != 0:
             plt.scatter(Iter, best_swarm_fitnessVal)
             plt.pause(0.05)
             plt.grid()

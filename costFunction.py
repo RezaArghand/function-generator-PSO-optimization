@@ -34,7 +34,7 @@ def mainCost(input):
             # else:
             #     theString += '-x0*5000'
 
-            mainFunc = finalString  # eval(finalString)
+            # eval(finalString)
             steps = 1000
             maxY = 100
             dx = maxY / steps
@@ -47,9 +47,10 @@ def mainCost(input):
             result = secondCost
             # print(position)
             # result = firstCost
+            mainFunc = sp.simplify(eval(finalString))
         except:
             result = 1000000
-            mainFunc = finalString
+            mainFunc = "error calculating the function generated..."
     else:
         result = 1500000
         mainFunc = "there is no valid function"
