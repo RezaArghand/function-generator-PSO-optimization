@@ -9,11 +9,20 @@ from scipy.stats import logistic
 x0 = sp.symbols("x0")
 
 
-def mainCost(position):
+def mainCost(input):
+    position = []
+    newPosition = []
+    for i in range(0, par.funcNum):
+        position.append(abs(math.floor(input[i])))
+        newPosition.append(input[i + par.funcNum] * par.bound_of_realNumber / par.max_of_variable)
     theString = []
     mainList = par.finalLib
-    for i in position:
-        theString.append(mainList[i])
+    for i in range(len(position)):
+        realN = str(newPosition[i])
+        theString.append("+")
+        theString.append(realN)
+        theString.append("*")
+        theString.append(mainList[position[i]])
     # finalString = "".join(func.makeBalanced(theString))
     sstring = "".join(theString)
     finalString = func.makeBalanced(sstring)
@@ -26,29 +35,23 @@ def mainCost(position):
             #     theString += '-x0*5000'
 
             mainFunc = finalString  # eval(finalString)
-            # print(mainFunc)
-            firstCost = abs(func.evalFunction(1, finalString) - 3) + abs(
-                func.evalFunction(5, finalString) - 11)
-            # print(firstCost)
             steps = 1000
-            maxY = 5
+            maxY = 100
             dx = maxY / steps
             secondCost = 0
 
             for i in range(0, steps):
                 xx = dx * i
-                f1 = ((func.evalFunction(xx + dx, finalString)) - (func.evalFunction(xx, finalString))) ** 2
-                f2 = dx ** 2
-                f3 = np.sqrt(f1 + f2)
-                secondCost = secondCost + f3
-
-            result = (firstCost + abs(secondCost - 11.18) / 10)
+                secondCost += abs(func.evalFunction(xx, finalString) - (5.7 * np.sin(xx ** 2) - 11 * xx + 5))
+            # secondCost = secondCost / steps
+            result = secondCost
+            # print(position)
             # result = firstCost
         except:
-            result = 10000
+            result = 1000000
             mainFunc = finalString
     else:
-        result = 15000
+        result = 1500000
         mainFunc = "there is no valid function"
 
     return result, mainFunc

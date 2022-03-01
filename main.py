@@ -3,7 +3,12 @@ import math  # cos() for Rastrigin
 import copy  # array-copying convenience
 import sys
 from time import time  # max float
+
+import numpy as np
+
 import costFunction as costF
+import functions
+import parameters
 import parameters as Par
 import functions as fun
 import matplotlib.pyplot as plt
@@ -36,10 +41,10 @@ def fitness_sphere(position):
 
 
 def fitness_test(position):
-    input = []
-    for i in position:
-        input.append(int(math.floor(i)))
-    result = costF.costNumber(input)
+    # input = []
+    # for i in position:
+    #     input.append(int(math.floor(i)))
+    result = costF.costNumber(position)
     return result
 
 
@@ -110,7 +115,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             print("Iter = " + str(Iter) + " best fitness = %.15f" %
                   best_swarm_fitnessVal)
             # print(best_swarm_pos)
-            best_Possition = [math.floor(i) for i in best_swarm_pos]
+            best_Possition = [abs(math.floor(i)) for i in best_swarm_pos]
             print(best_Possition)
             print(costF.bestFunc(best_Possition))
 
@@ -140,9 +145,15 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                 swarm[i].position[k] += swarm[i].velocity[k]
 
                 if swarm[i].position[k] < minx:
-                    swarm[i].position[k] = minx
+                    swarm[i].position[k] = 2 * minx - swarm[i].position[k]
                 elif swarm[i].position[k] > maxx:
-                    swarm[i].position[k] = maxx
+                    swarm[i].position[k] = 2 * maxx - swarm[i].position[k]
+
+            # randomizing several particles
+            for i in range(parameters.number_randomize_particles):
+                for k in range(dim):
+                    hh = random.randint(0, n - 1)
+                    swarm[hh].position[k] = random.randint(minx, maxx) * random.random()
 
             # compute fitness of new position
             swarm[i].fitness = fitness(swarm[i].position)
@@ -157,13 +168,24 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                 best_swarm_fitnessVal = swarm[i].fitness
                 best_swarm_pos = copy.copy(swarm[i].position)
         if Iter % 150 == 0:
+            print(functions.colored(255, 50, 50, "Randomization Happened, " + "iteration = " + str(Iter)))
             for i in range(n):
                 for k in range(dim):
-                    swarm[i].position[k] = random.random() * maxx
-                    # swarm[i].velocity[k] = random.random() * maxx
-            # for k in range(dim):
+                    swarm[i].position[k] = random.randint(minx, maxx) * random.random()
+        #             # w = parameters.W
+        #             # swarm[i].velocity[k] = random.randint(minx, maxx)
+        #     # for k in range(dim):
 
-            # swarm[random.randint(0,n)].position[]
+        # swarm[random.randint(0,n)].position[]
+
+        # reset w
+        if Iter % 1500 == 0:
+            w = Par.W
+
+        if Iter % 50 == 0 or Iter == 10:
+            plt.scatter(Iter, best_swarm_fitnessVal)
+            plt.pause(0.05)
+            plt.grid()
         fitnessPlot.append(best_swarm_fitnessVal)
         iterPlot.append(Iter)
 
@@ -202,18 +224,23 @@ best_position = pso(fitness, max_iter, num_particles,
                     dim, xmin, xmax, w, c1, c2, satisfaction_fitness)
 
 BestPosition = [best_position[k] for k in range(dim)]
+bestFunction = costF.bestFunc(BestPosition)
 print("\nPSO completed\n")
 print("\nBest variables:")
 print([math.floor(best_position[k]) for k in range(dim)])
 fitnessVal = fitness(best_position)
 print("cost of best variables = " + str(fitnessVal))
+print()
+print("best function found = ")
+print(bestFunction)
+print()
 end_time = time()
 full_time = end_time - start_time
 print("The time consumed = " + str(full_time // 60) + " minutes " + str(full_time % 60) + " seconds ")
 print()
 print()
-iterP = iterPlot[1000:]
-fitnessP = fitnessPlot[1000:]
+iterP = iterPlot[10:]
+fitnessP = fitnessPlot[10:]
 fig = plt.figure(1)  # identifies the figure
 plt.title("cost function", fontsize='16')  # title
 plt.plot(iterP, fitnessP)  # plot the points

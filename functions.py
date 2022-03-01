@@ -1,7 +1,9 @@
 # Function to check parentheses
+import math
 import random
 import numpy as np
 import sympy as sp
+from matplotlib import pyplot as plt
 
 
 def isBalanced(myStr):
@@ -48,7 +50,9 @@ def sigmoid(input):
     return result
 
 
-def evalFunction(x0, function):
+def evalFunction(a, function):
+    x0 = a
+    # result = sp.N(eval(function))
     result = eval(function)
     return result
 
@@ -58,8 +62,25 @@ def normalizeLength(f1, f2, f3):
     length2 = len(f2)
     length3 = len(f3)
     nothing = ['']
-    maxLen = max(length1, length3, length2)
+    finalLib = []
+    maxLen = max(length1, length3, length2) * 3 + 1
     newF1 = (maxLen // length1) * f1 + (maxLen % length1) * nothing
     newF2 = (maxLen // length2) * f2 + (maxLen % length2) * nothing
     newF3 = (maxLen // length3) * f3 + (maxLen % length3) * nothing
-    return maxLen, newF1, newF2, newF3
+    # for i in range(maxLen):
+    #     finalLib.append(newF1[i])
+    #     finalLib.append('')
+    #     finalLib.append(newF2[i])
+    #     finalLib.append('')
+    #     finalLib.append(newF3[i])
+    #     finalLib.append('')
+    #     finalLib.append("1")
+    finalLib = newF1 + newF3 + newF2
+    return maxLen, finalLib
+
+
+def colored(r, g, b, text):
+    return "\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(r, g, b, text)
+
+# print(evalFunction(25, 'np.sin(x0)'))
+# print(math.sin(25))
