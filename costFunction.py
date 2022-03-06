@@ -27,7 +27,8 @@ def mainCost(position):
     for i in range(l_func, l_num_func):
         value = func.map_value(position[i], par.min_of_variable, par.max_of_variable, -par.bound_of_realNumber,
                                par.bound_of_realNumber)
-        inputt.append(str(round(value, 2)))
+        stringValue = '+ ' + str(round(value, 2))
+        inputt.append(stringValue)
     inputt.append('')
     for i in combinationList:
         theString.append(inputt[i])
@@ -40,7 +41,7 @@ def mainCost(position):
     primaryString = "".join(theString)
     finalString = func.makeBalanced(primaryString)
 
-    if ("x0" in finalString):
+    if 'x0' in finalString:
         try:
             # if 'x0' in theString:
             #     theString += ''
@@ -62,10 +63,10 @@ def mainCost(position):
             # result = firstCost
         except:
             result = 10000
-            mainFunc = finalString
+            mainFunc = "error(1) : " + finalString
     else:
         result = 15000
-        mainFunc = finalString
+        mainFunc = "error(2) : " + finalString
 
     return result, mainFunc
 

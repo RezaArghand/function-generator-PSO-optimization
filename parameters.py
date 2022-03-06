@@ -7,7 +7,7 @@ number_of_particles = 1500  # particle count
 number_randomize_particles_fullArea = 500
 number_randomize_particles_firstBitOfBest = 500
 
-funcNum = 6
+funcNum = 4
 varNum = funcNum * 2 + 1  # number of parameters in each particle
 damping_rate_W = 0.9  # inertia damper
 w_reset_iteration = 1500  # the iteration that w is reset
@@ -25,7 +25,7 @@ funcLib = ['(', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.sqrt(x0', 'x0', 'np.cos(x0
            'x0*x0*x0']
 operators = ['*', '/', '+', '-', '**', ')', '(']
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
-finalLib = operators + funcLib + operators
+finalLib = funcLib + operators
 max_of_variable = len(finalLib) - 1  # max domain
 min_of_variable = -len(finalLib) + 1  # min domain
 
