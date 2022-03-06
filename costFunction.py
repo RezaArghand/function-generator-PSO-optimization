@@ -9,23 +9,36 @@ from scipy.stats import logistic
 x0 = sp.symbols("x0")
 
 
-def mainCost(input):
-    position = []
-    newPosition = []
-    for i in range(0, par.funcNum):
-        position.append(abs(math.floor(input[i])))
-        newPosition.append(input[i + par.funcNum] * par.bound_of_realNumber / par.max_of_variable)
+def mainCost(position):
+    combinations = par.combinationList
+    combinationsLength = len(combinations)
+    mainLib = par.finalLib
+    inputt = []
     theString = []
-    mainList = par.finalLib
-    for i in range(len(position)):
-        realN = str(newPosition[i])
-        theString.append("+")
-        theString.append(realN)
-        theString.append("*")
-        theString.append(mainList[position[i]])
+    inputt.append('')
+    l_num_func = int(len(position) - 1)
+    l_func = int(l_num_func / 2)
+    combinationNumber = int(
+        np.floor(func.map_value(position[-1], par.min_of_variable, par.max_of_variable, 0, combinationsLength - 1)))
+    combinationList = combinations[combinationNumber]
+    for i in range(l_func):
+        j = int(np.floor(position[i]))
+        inputt.append(mainLib[j])
+    for i in range(l_func, l_num_func):
+        value = func.map_value(position[i], par.min_of_variable, par.max_of_variable, -par.bound_of_realNumber,
+                               par.bound_of_realNumber)
+        inputt.append(str(round(value, 2)))
+    inputt.append('')
+    for i in combinationList:
+        theString.append(inputt[i])
+    # print(position)
+    # print(inputt)
+    # print(combinationList)
+    # print(theString)
+    # a = input("go?")
     # finalString = "".join(func.makeBalanced(theString))
-    sstring = "".join(theString)
-    finalString = func.makeBalanced(sstring)
+    primaryString = "".join(theString)
+    finalString = func.makeBalanced(primaryString)
 
     if ("x0" in finalString):
         try:
@@ -34,7 +47,7 @@ def mainCost(input):
             # else:
             #     theString += '-x0*5000'
 
-            # eval(finalString)
+            mainFunc = finalString  # eval(finalString)
             steps = 1000
             maxY = 100
             dx = maxY / steps
@@ -42,18 +55,17 @@ def mainCost(input):
 
             for i in range(0, steps):
                 xx = dx * i
-                secondCost += abs(func.evalFunction(xx, finalString) - (5.7 * np.sin(xx ** 2) - 11 * xx + 5))
+                secondCost += abs(func.evalFunction(xx, finalString) - (2.35 * np.sqrt(xx)))
             # secondCost = secondCost / steps
             result = secondCost
             # print(position)
             # result = firstCost
-            mainFunc = sp.simplify(eval(finalString))
         except:
-            result = 1000000
-            mainFunc = "error calculating the function generated..."
+            result = 10000
+            mainFunc = finalString
     else:
-        result = 1500000
-        mainFunc = "there is no valid function"
+        result = 15000
+        mainFunc = finalString
 
     return result, mainFunc
 
@@ -65,12 +77,16 @@ def costNumber(positon):
 
 def bestFunc(position):
     final, funn = mainCost(position)
-    result = "y = " + str(funn)
+    try:
+        result1 = sp.simplify(eval(funn))
+    except:
+        result1 = str(funn)
+    result = "y = " + str(result1)
     return result
 
-# pp = [1, 19, 11, 9, 24]
-#
-# print(str(bestFunc(pp)))
+# pp = [1, 5, 11, 9, 12, 10, 1]
+# #
+# print(str(costNumber(pp)))
 
 # x = sp.symbols("x")
 #
