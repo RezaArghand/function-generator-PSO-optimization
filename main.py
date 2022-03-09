@@ -184,7 +184,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                 best_swarm_pos = copy.copy(swarm[hh].position)
 
         # randomizing first bit of best particle
-        if Iter % 30 == 0:
+        if Iter % 1 == 0:
             # print(functions.colored(255, 50, 50, "Randomization Happened, " + "iteration = " + str(Iter)))
             for j in range(Par.number_randomize_particles_firstBitOfBest):
                 i = random.randint(0, n - 1)
@@ -204,7 +204,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                     best_swarm_fitnessVal = swarm[i].fitness
                     best_swarm_pos = copy.copy(swarm[i].position)
 
-        if Iter % 500 == 0:
+        if Iter % 500 == 0 or Iter < 30:
             print(functions.colored(255, 50, 50, "Big Randomization Happened, " + "iteration = " + str(Iter)))
             for i in range(n):
                 for k in range(dim):
@@ -221,10 +221,10 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
         # end new randomization///////////////////////////////////////////////////////////////////////////////////////////////////
 
         # plot iteration ft cost function
-        # if Iter % 10 == 0 and Iter != 0:
-        #     plt.scatter(Iter, best_swarm_fitnessVal)
-        #     plt.pause(0.05)
-        #     plt.grid()
+        if Iter % 50 == 0 and Iter != 0 and best_swarm_fitnessVal < 5000:
+            plt.scatter(Iter, best_swarm_fitnessVal)
+            plt.pause(0.05)
+            plt.grid()
 
         fitnessPlot.append(best_swarm_fitnessVal)
         iterPlot.append(Iter)

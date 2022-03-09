@@ -49,14 +49,16 @@ def mainCost(position):
             #     theString += '-x0*5000'
 
             mainFunc = finalString  # eval(finalString)
-            steps = 1000
-            maxY = 100
+            steps = 200
+            maxY = 20
             dx = maxY / steps
+            mainX = np.linspace(0, 5, 1000)
             secondCost = 0
 
-            for i in range(0, steps):
-                xx = dx * i
-                secondCost += abs(func.evalFunction(xx, finalString) - (2.35 * np.sqrt(xx)))
+            for i in range(len(mainX)):
+                xx = mainX[i]
+                primaryVal = 1.6 * xx * xx + 3.4 * xx - 12.5
+                secondCost += abs(func.evalFunction(xx, finalString) - primaryVal)
             # secondCost = secondCost / steps
             result = secondCost
             # print(position)
