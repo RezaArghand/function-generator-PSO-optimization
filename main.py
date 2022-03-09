@@ -115,9 +115,10 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             print("Iter = " + str(Iter) + " best fitness = %.15f" %
                   best_swarm_fitnessVal)
             # print(best_swarm_pos)
-            best_Possition = [abs(math.floor(i)) for i in best_swarm_pos]
+            best_Possition = [math.floor(i) for i in best_swarm_pos]
+            realBestPosition = best_swarm_pos
             print(best_Possition)
-            print(costF.bestFunc(best_Possition))
+            print(costF.bestFunc(best_swarm_pos))
 
         for i in range(n):  # process each particle
 
@@ -149,12 +150,6 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                 elif swarm[i].position[k] > maxx:
                     swarm[i].position[k] = 2 * maxx - swarm[i].position[k]
 
-            # randomizing several particles
-            for i in range(parameters.number_randomize_particles):
-                for k in range(dim):
-                    hh = random.randint(0, n - 1)
-                    swarm[hh].position[k] = random.randint(minx, maxx) * random.random()
-
             # compute fitness of new position
             swarm[i].fitness = fitness(swarm[i].position)
 
@@ -167,25 +162,70 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             if swarm[i].fitness < best_swarm_fitnessVal:
                 best_swarm_fitnessVal = swarm[i].fitness
                 best_swarm_pos = copy.copy(swarm[i].position)
-        if Iter % 150 == 0:
-            print(functions.colored(255, 50, 50, "Randomization Happened, " + "iteration = " + str(Iter)))
+
+        # new randomization///////////////////////////////////////////////////////////////////////////////////////
+        # randomizing several particles
+        for j in range(parameters.number_randomize_particles_fullArea):
+            hh = random.randint(0, n - 1)
+            for k in range(dim):
+                swarm[hh].position[k] = random.random() * maxx
+
+            # compute fitness of new position
+            swarm[hh].fitness = fitness(swarm[hh].position)
+
+            # is new position a new best for the particle?
+            if swarm[hh].fitness < swarm[hh].best_part_fitnessVal:
+                swarm[hh].best_part_fitnessVal = swarm[hh].fitness
+                swarm[hh].best_part_pos = copy.copy(swarm[hh].position)
+
+            # is new position a new best overall?
+            if swarm[hh].fitness < best_swarm_fitnessVal:
+                best_swarm_fitnessVal = swarm[hh].fitness
+                best_swarm_pos = copy.copy(swarm[hh].position)
+
+        # randomizing first bit of best particle
+        if Iter % 1 == 0:
+            # print(functions.colored(255, 50, 50, "Randomization Happened, " + "iteration = " + str(Iter)))
+            for j in range(Par.number_randomize_particles_firstBitOfBest):
+                i = random.randint(0, n - 1)
+                for k in range(dim):
+                    swarm[i].position[k] = best_swarm_pos[k]
+                swarm[i].position[-1] = random.random() * maxx
+                # compute fitness of new position
+                swarm[i].fitness = fitness(swarm[i].position)
+
+                # is new position a new best for the particle?
+                if swarm[i].fitness < swarm[hh].best_part_fitnessVal:
+                    swarm[i].best_part_fitnessVal = swarm[i].fitness
+                    swarm[i].best_part_pos = copy.copy(swarm[i].position)
+
+                # is new position a new best overall?
+                if swarm[i].fitness < best_swarm_fitnessVal:
+                    best_swarm_fitnessVal = swarm[i].fitness
+                    best_swarm_pos = copy.copy(swarm[i].position)
+
+        if Iter % 500 == 0 or Iter < 30:
+            print(functions.colored(255, 50, 50, "Big Randomization Happened, " + "iteration = " + str(Iter)))
             for i in range(n):
                 for k in range(dim):
                     swarm[i].position[k] = random.randint(minx, maxx) * random.random()
-        #             # w = parameters.W
-        #             # swarm[i].velocity[k] = random.randint(minx, maxx)
+        # w = parameters.W
+        # swarm[i].velocity[k] = random.randint(minx, maxx)
         #     # for k in range(dim):
 
         # swarm[random.randint(0,n)].position[]
 
         # reset w
-        if Iter % 1500 == 0:
+        if Iter % Par.w_reset_iteration == 0:
             w = Par.W
+        # end new randomization///////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if Iter % 10 == 0 and Iter != 0:
+        # plot iteration ft cost function
+        if Iter % 50 == 0 and Iter != 0 and best_swarm_fitnessVal < 5000:
             plt.scatter(Iter, best_swarm_fitnessVal)
             plt.pause(0.05)
             plt.grid()
+
         fitnessPlot.append(best_swarm_fitnessVal)
         iterPlot.append(Iter)
 
