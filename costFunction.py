@@ -41,7 +41,7 @@ def mainCost(position):
     primaryString = "".join(theString)
     finalString = func.makeBalanced(primaryString)
 
-    if 'x0' in finalString:
+    if 'x0' in finalString and 'x1' in finalString:
         try:
             # if 'x0' in theString:
             #     theString += ''
@@ -52,13 +52,16 @@ def mainCost(position):
             steps = 200
             maxY = 20
             dx = maxY / steps
-            mainX = np.linspace(0, 5, 1000)
+            mainX = np.linspace(-20, 20, 100)
+            mainY = np.linspace(-20, 20, 100)
             secondCost = 0
 
-            for i in range(len(mainX)):
-                xx = mainX[i]
-                primaryVal = 1.6 * xx * xx + 3.4 * xx - 12.5
-                secondCost += abs(func.evalFunction(xx, finalString) - primaryVal)
+            for j in range(len(mainY)):
+                yy = mainY[j]
+                for i in range(len(mainX)):
+                    xx = mainX[i]
+                    primaryVal = xx - yy - 6.3
+                    secondCost += abs(func.evalFunctionDualFunc(xx, yy, finalString) - primaryVal)
             # secondCost = secondCost / steps
             result = secondCost
             # print(position)

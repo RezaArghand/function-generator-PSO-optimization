@@ -20,10 +20,10 @@ max_iteration_number = 80000  # max iteration
 # end parameters of PSO optimization
 
 # function library
-funcLib = ['(', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'np.floor(x0', 'np.sqrt(x0', 'x0', 'np.cos(x0',
-           'np.tan(', 'np.sqrt(x0', '(x**2)', 'np.exp(', 'np.exp(x0',
-           '1/x0', 'np.sign(', 'np.sign(x0',
-           '(x0 ** 3)', '']
+funcLib = ['(', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'np.floor(x0','np.floor(x1','np.floor(x0*x1', 'np.sqrt(x0','np.sqrt(x1','np.sqrt(x0*x1', 'x0','x1','x0*x1' ,'x0+x1','np.cos(x0',
+           'np.tan(', 'np.sqrt(x0', '(x0**2)','(x1**2)', 'np.exp(', 'np.exp(x0',
+           'np.cos(x1','np.cos(x0*x1','1/x0','1/x1','1/(x0*x1)', 'np.sign(', 'np.sign(x0','np.sign(x1','np.sign(x0*x1',
+           '(x0 ** 3)','(x1 ** 3)', '']
 operators = ['*', '/', '+', '-', '**', ')', '(']
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
 finalLib = funcLib + operators

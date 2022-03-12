@@ -58,6 +58,14 @@ def evalFunction(a, function):
     return result
 
 
+def evalFunctionDualFunc(a, b, function):
+    x0 = a
+    x1 = b
+    # result = sp.N(eval(function))
+    result = eval(function)
+    return result
+
+
 def normalizeLength(f1, f2):
     length1 = len(f1)
     length2 = len(f2)
