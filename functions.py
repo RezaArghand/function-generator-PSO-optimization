@@ -5,6 +5,7 @@ import numpy as np
 import sympy as sp
 from matplotlib import pyplot as plt
 import itertools
+import parameters as par
 
 
 def isBalanced(myStr):
@@ -114,6 +115,40 @@ def map_value(in_v, in_min, in_max, out_min, out_max):  # (3)
 
     # result = int(np.floor(v))
     return v
+
+
+def functionStringGenerator(position):
+    combinations = par.combinationList
+    combinationsLength = len(combinations)
+    mainLib = par.finalLib
+    inputt = []
+    theString = []
+    inputt.append('')
+    l_num_func = int(len(position) - 1)
+    l_func = int(l_num_func / 2)
+    combinationNumber = int(
+        np.floor(map_value(position[-1], par.min_of_variable, par.max_of_variable, 0, combinationsLength - 1)))
+    combinationList = combinations[combinationNumber]
+    for i in range(l_func):
+        j = int(np.floor(position[i]))
+        inputt.append(mainLib[j])
+    for i in range(l_func, l_num_func):
+        value = map_value(position[i], par.min_of_variable, par.max_of_variable, -par.bound_of_realNumber,
+                          par.bound_of_realNumber)
+        stringValue = '+ ' + str(round(value, 2))
+        inputt.append(stringValue)
+    inputt.append('')
+    for i in combinationList:
+        theString.append(inputt[i])
+    # print(position)
+    # print(inputt)
+    # print(combinationList)
+    # print(theString)
+    # a = input("go?")
+    # finalString = "".join(func.makeBalanced(theString))
+    primaryString = "".join(theString)
+    finalString = makeBalanced(primaryString)
+    return finalString
 
 # print((map_value(35.6, -150, 150, 0, 1356)))
 # print(evalFunction(25, 'np.sin(x0)'))

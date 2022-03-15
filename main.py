@@ -95,7 +95,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
     swarm = [Particle(fitness, dim, minx, maxx, i) for i in range(n)]
 
     # compute the value of best_position and best_fitness in swarm
-    best_swarm_pos = [0.0 for i in range(dim)]
+    best_swarm_pos = [2.0 for i in range(dim)]
     best_swarm_fitnessVal = sys.float_info.max  # swarm best
 
     # computer best particle of swarm and it's fitness
@@ -105,13 +105,16 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             best_swarm_pos = copy.copy(swarm[i].position)
 
     # main loop of pso
-
+    realRandomNumber = 0
+    velgardRandomization = 0
+    jaygashtRandomization = 0
     Iter = 0
     while Iter < max_iter:
 
         # after every 10 iterations
         # print iteration number and best fitness value so far
         if Iter % 10 == 0:
+            print("-------------------------------------------------------")
             print("Iter = " + str(Iter) + " best fitness = %.15f" %
                   best_swarm_fitnessVal)
             # print(best_swarm_pos)
@@ -119,6 +122,8 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             realBestPosition = best_swarm_pos
             print(best_Possition)
             print(costF.bestFunc(best_swarm_pos))
+            print("realRandomization = " + str(realRandomNumber) + " ,velgardRandom = " + str(
+                velgardRandomization) + " ,jaygashtRandom = " + str(jaygashtRandomization))
 
         for i in range(n):  # process each particle
 
@@ -166,6 +171,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
         # new randomization///////////////////////////////////////////////////////////////////////////////////////
         # randomizing several particles
         for j in range(parameters.number_randomize_particles_fullArea):
+            velgardRandomization = Iter
             hh = random.randint(0, n - 1)
             for k in range(dim):
                 swarm[hh].position[k] = random.random() * maxx
@@ -185,6 +191,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
 
         # randomizing first bit of best particle
         if Iter % 1 == 0:
+            jaygashtRandomization = Iter
             # print(functions.colored(255, 50, 50, "Randomization Happened, " + "iteration = " + str(Iter)))
             for j in range(Par.number_randomize_particles_firstBitOfBest):
                 i = random.randint(0, n - 1)
@@ -195,7 +202,32 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                 swarm[i].fitness = fitness(swarm[i].position)
 
                 # is new position a new best for the particle?
-                if swarm[i].fitness < swarm[hh].best_part_fitnessVal:
+                if swarm[i].fitness < swarm[i].best_part_fitnessVal:
+                    swarm[i].best_part_fitnessVal = swarm[i].fitness
+                    swarm[i].best_part_pos = copy.copy(swarm[i].position)
+
+                # is new position a new best overall?
+                if swarm[i].fitness < best_swarm_fitnessVal:
+                    best_swarm_fitnessVal = swarm[i].fitness
+                    best_swarm_pos = copy.copy(swarm[i].position)
+        # real number randomization
+        if Iter % 1 == 0:
+            realRandomNumber = Iter
+            # print(functions.colored(255, 50, 50, "Randomization Happened, " + "iteration = " + str(Iter)))
+            for j in range(Par.number_randomize_realNumbers):
+                i = random.randint(0, n - 1)
+                for k in range(dim):
+                    swarm[i].position[k] = best_swarm_pos[k]
+                l1 = Par.funcNum
+                l2 = l1 * 2
+                for k in range(l1, l2):
+                    swarm[i].position[k] = random.random() * maxx
+
+                # compute fitness of new position
+                swarm[i].fitness = fitness(swarm[i].position)
+
+                # is new position a new best for the particle?
+                if swarm[i].fitness < swarm[i].best_part_fitnessVal:
                     swarm[i].best_part_fitnessVal = swarm[i].fitness
                     swarm[i].best_part_pos = copy.copy(swarm[i].position)
 
@@ -208,7 +240,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             print(functions.colored(255, 50, 50, "Big Randomization Happened, " + "iteration = " + str(Iter)))
             for i in range(n):
                 for k in range(dim):
-                    swarm[i].position[k] = random.randint(minx, maxx) * random.random()
+                    swarm[i].position[k] = maxx * random.random()
         # w = parameters.W
         # swarm[i].velocity[k] = random.randint(minx, maxx)
         #     # for k in range(dim):
