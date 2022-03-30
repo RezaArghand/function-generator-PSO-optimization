@@ -63,7 +63,7 @@ def normalizeLength(f1, f2):
     length2 = len(f2)
     nothing = ['']
     finalLib = []
-    maxLen = max(length1, length3, length2) * 3 + 1
+    maxLen = max(length1, length2) * 3 + 1
     newF1 = (maxLen // length1) * f1 + (maxLen % length1) * nothing
     newF2 = (maxLen // length2) * f2 + (maxLen % length2) * nothing
     # newF3 = (maxLen // length3) * f3 + (maxLen % length3) * nothing

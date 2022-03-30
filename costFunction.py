@@ -56,16 +56,15 @@ def mainCost(position):
             B = 10
             k = 20
             u = 1
-            kp = 20
-            t = np.linspace(0, 10, 100)
+            t = np.linspace(0, 10, 50)
 
             y0 = [0, 0]
 
             def ode(y, t):
-                x2, x3 = y  # x2 == possition , x3 == velocity
-                error = u-x2
-                funcError = func.evalFunction(error, finalString)
-                dydt = [x3, (-B*x3-k*x2+kp*funcError)/M]
+                x1, x2 = y  # x2 == possition , x3 == velocity
+                err = u - x1
+                funcErr = func.evalFunction(err, finalString)
+                dydt = [x2, (-B * x2 - k * x1 + funcErr) / M]
                 return dydt
 
             sol = odeint(ode, y0, t)
@@ -75,14 +74,14 @@ def mainCost(position):
             controlingEffort = []
 
             for i in position_x:
-                error = u-i
+                error = u - i
                 funcError = func.evalFunction(error, finalString)
                 controlingEffort.append(funcError)
 
             secondCost = 0
-            dt = 10/len(t)
-            for i in range(len(t)):
-                secondCost += abs((position_x[i]-u)*dt)
+            dtt = 10 / len(t)
+            for i in range(len(position_x)):
+                secondCost = secondCost + abs(t[i] * (position_x[i] - u) * dtt)
 
             # ODE solution End ////////////////////////////////////////////////////////////////////////////
             result = secondCost
@@ -109,7 +108,7 @@ def bestFunc(position):
         result1 = sp.simplify(eval(funn))
     except:
         result1 = str(funn)
-    result = "y = " + str(result1)
+    result = str(result1)
     return result
 
 # pp = [1, 5, 11, 9, 12, 10, 1]
