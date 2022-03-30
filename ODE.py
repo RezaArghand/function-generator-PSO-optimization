@@ -124,15 +124,6 @@ def solveAndPlot(sstring):
 
     sol = odeint(ode, y0, t)
 
-    # def odeManga(y, t):
-    #     x2, x3 = y  # x2 == possition , x3 == velocity
-    #     funcError = np.tanh(
-    #         np.tanh(np.tanh(np.tanh(u - x2) * 81.6497) * 8) * abs(np.sqrt(np.pi) * np.log(6))) * np.pi * 81.6497
-    #     dydt = [x3, (-B * x3 - k * x2 + funcError) / M]
-    #     return dydt
-
-    # solManga = odeint(odeManga, y0, t)
-
     plt.plot(t, sol[:, 0], 'b', label='x(t) - rasa')
     plt.plot(t, mengaX, 'g', label='x(t) - manga')
     plt.title(finalString)
@@ -143,6 +134,5 @@ def solveAndPlot(sstring):
     plt.savefig("01plot.png")
     plt.close()
 
-# solveAndPlot('np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497')
-
-# menga='np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+# menga = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+# solveAndPlot(menga)

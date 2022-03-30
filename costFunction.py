@@ -56,7 +56,7 @@ def mainCost(position):
             B = 10
             k = 20
             u = 1
-            t = np.linspace(0, 10, 50)
+            t = np.linspace(0, 10, 500)
 
             y0 = [0, 0]
 
