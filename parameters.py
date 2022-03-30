@@ -11,11 +11,11 @@ funcNum = 5
 varNum = funcNum * 2 + 1  # number of parameters in each particle
 damping_rate_W = 0.9  # inertia damper
 w_reset_iteration = 1500  # the iteration that w is reset
-bound_of_realNumber = 50
-satisfaction_cost_number = 0.5  # satisfaction point
+bound_of_realNumber = 500
+satisfaction_cost_number = 0.005  # satisfaction point
 W = 0.9  # inertia
-C1 = 1.1  # cognitive (particle)
-C2 = 1.6  # social (swarm)
+C1 = 1.5  # cognitive (particle)
+C2 = 2.4  # social (swarm)
 max_iteration_number = 80000  # max iteration
 # end parameters of PSO optimization
 

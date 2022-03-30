@@ -5,6 +5,7 @@ import parameters as par
 import sympy as sp
 import functions as func
 from scipy.stats import logistic
+from scipy.integrate import odeint
 
 x0 = sp.symbols("x0")
 
@@ -49,17 +50,41 @@ def mainCost(position):
             #     theString += '-x0*5000'
 
             mainFunc = finalString  # eval(finalString)
-            steps = 200
-            maxY = 20
-            dx = maxY / steps
-            mainX = np.linspace(0, 5, 1000)
-            secondCost = 0
 
-            for i in range(len(mainX)):
-                xx = mainX[i]
-                primaryVal = 1.6 * xx * xx + 3.4 * xx - 12.5
-                secondCost += abs(func.evalFunction(xx, finalString) - primaryVal)
-            # secondCost = secondCost / steps
+            # ODE solution start ////////////////////////////////////////////////////////////////////////////////
+            M = 1
+            B = 10
+            k = 20
+            u = 1
+            kp = 20
+            t = np.linspace(0, 10, 100)
+
+            y0 = [0, 0]
+
+            def ode(y, t):
+                x2, x3 = y  # x2 == possition , x3 == velocity
+                error = u-x2
+                funcError = func.evalFunction(error, finalString)
+                dydt = [x3, (-B*x3-k*x2+kp*funcError)/M]
+                return dydt
+
+            sol = odeint(ode, y0, t)
+
+            position_x = sol[:, 0]
+            velocity_v = sol[:, 1]
+            controlingEffort = []
+
+            for i in position_x:
+                error = u-i
+                funcError = func.evalFunction(error, finalString)
+                controlingEffort.append(funcError)
+
+            secondCost = 0
+            dt = 10/len(t)
+            for i in range(len(t)):
+                secondCost += abs((position_x[i]-u)*dt)
+
+            # ODE solution End ////////////////////////////////////////////////////////////////////////////
             result = secondCost
             # print(position)
             # result = firstCost
