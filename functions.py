@@ -2,6 +2,7 @@
 import math
 import random
 import numpy as np
+import scipy.integrate
 import sympy as sp
 from matplotlib import pyplot as plt
 import itertools
@@ -108,5 +109,6 @@ def map_value(in_v, in_min, in_max, out_min, out_max):  # (3)
     return v
 
 # print((map_value(35.6, -150, 150, 0, 1356)))
-# print(evalFunction(25, 'np.sin(x0)'))
+
+# print(evalFunction(50, 'np.sin(x0)'))
 # print(math.sin(25))

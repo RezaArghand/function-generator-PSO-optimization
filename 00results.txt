@@ -1,0 +1,5 @@
+
+ iteration => 0 
+ best cost => 279.89237048152233 
+ best position => [-5, 17, -23, -18, 5, 0, -12, 13, 3, -21, -7] 
+ best function => +++np.exp(np.exp(np.exp(np.exp(x0+ 13.27+ 13.27+ -247.88)))) 

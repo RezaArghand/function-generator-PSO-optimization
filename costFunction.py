@@ -56,7 +56,7 @@ def mainCost(position):
             B = 10
             k = 20
             u = 1
-            t = np.linspace(0, 10, 500)
+            t = np.linspace(0, 10, 1000)
 
             y0 = [0, 0]
 
@@ -79,9 +79,11 @@ def mainCost(position):
                 controlingEffort.append(funcError)
 
             secondCost = 0
-            dtt = 10 / len(t)
-            for i in range(len(position_x)):
-                secondCost = secondCost + abs(t[i] * (position_x[i] - u) * dtt)
+            # dtt = 10 / len(t)
+            # for i in range(len(position_x)):
+            #     secondCost = secondCost + abs(t[i] * (position_x[i] - u) * dtt)
+
+            secondCost = np.trapz(abs(1.0 - position_x))
 
             # ODE solution End ////////////////////////////////////////////////////////////////////////////
             result = secondCost

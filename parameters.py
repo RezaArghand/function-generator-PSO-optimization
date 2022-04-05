@@ -22,7 +22,7 @@ max_iteration_number = 80000  # max iteration
 # function library
 funcLib = ['(', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'np.floor(x0', 'np.sqrt(x0', 'x0', 'np.cos(x0',
            'np.tan(', 'np.sqrt(x0', '(x**2)', 'np.exp(', 'np.exp(x0',
-           '1/x0', 'np.sign(', 'np.sign(x0',
+           'np.sign(', 'np.sign(x0',
            '(x0 ** 3)', '']
 operators = ['*', '/', '+', '-', '**', ')', '(']
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
