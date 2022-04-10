@@ -119,7 +119,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             realBestPosition = best_swarm_pos
             print(best_Possition)
             print(costF.bestFunc(best_swarm_pos))
-            ode.solveAndPlot(costF.bestFunc(best_swarm_pos))
+            # ode.solveAndPlot(costF.bestFunc(best_swarm_pos))
             if Iter < 2:
                 k = open("00results.txt", "w")
                 k.write("")
@@ -230,18 +230,18 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
         # end new randomization///////////////////////////////////////////////////////////////////////////////////////////////////
 
         # plot iteration ft cost function
-        if Iter % 20 == 0 and Iter != 0 and best_swarm_fitnessVal < 5000:
-            plt.plot(iterPlot, fitnessPlot)
-            # plt.pause(0.05)
-            plt.xlabel("iteration", fontsize='13')  # adds a label in the x axis
-            plt.ylabel("cost function", fontsize='13')  # adds a label in the y axis
-            plt.title("Convergance")
-            # plt.legend(('YvsX'), loc='best')  # creates a legend to identify the plot
-            # plt.savefig('Y_X.png')  # saves the figure in the present directory
-            plt.grid()  # shows a grid under the plot
-
-            plt.savefig('02convergance.png')
-            plt.close()
+        # if Iter % 10 == 0 and Iter != 0 and best_swarm_fitnessVal < 5000:
+        #     plt.plot(iterPlot, fitnessPlot)
+        #     # plt.pause(0.05)
+        #     plt.xlabel("iteration", fontsize='13')  # adds a label in the x axis
+        #     plt.ylabel("cost function", fontsize='13')  # adds a label in the y axis
+        #     plt.title("Convergance")
+        #     # plt.legend(('YvsX'), loc='best')  # creates a legend to identify the plot
+        #     # plt.savefig('Y_X.png')  # saves the figure in the present directory
+        #     plt.grid()  # shows a grid under the plot
+        #
+        #     plt.savefig('02convergance.png')
+        #     plt.close()
         fitnessPlot.append(best_swarm_fitnessVal)
         iterPlot.append(Iter)
 

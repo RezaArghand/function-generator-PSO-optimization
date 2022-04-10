@@ -7,8 +7,8 @@ M = 1
 B = 10
 k = 20
 u = 1
-t = np.linspace(0, 10, 500)
-
+t = np.linspace(0, 10, 5000)
+mengaT = np.linspace(0, 10, 500)
 y0 = [0, 0]
 mengaX = [0.0, 0.04803314124262707, 0.1799567872139412, 0.37957708734233236, 0.6331485576325565, 0.9290294325561672,
           1.1986391392662783, 1.3218778653196317, 1.3201594152830833, 1.2161881765693927, 1.0292892227739587,
@@ -379,7 +379,7 @@ def solveAndPlot(sstring):
         controlingEffort.append(funcError)
 
     plt.plot(t, sol[:, 0], 'b', label='x(t) - rasa')
-    plt.plot(t, mengaX, 'g', label='x(t) - manga')
+    plt.plot(mengaT, mengaX, 'g', label='x(t) - manga')
     plt.title(finalString)
     plt.legend(loc='best')
     plt.xlabel('t')
@@ -389,7 +389,7 @@ def solveAndPlot(sstring):
     plt.close()
 
     plt.plot(t, sol[:, 1], 'b', label='x(t) - rasa')
-    plt.plot(t, mengaV, 'g', label='x(t) - manga')
+    plt.plot(mengaT, mengaV, 'g', label='x(t) - manga')
     plt.title(finalString)
     plt.legend(loc='best')
     plt.xlabel('t')
@@ -399,7 +399,7 @@ def solveAndPlot(sstring):
     plt.close()
 
     plt.plot(t, controlingEffort, 'b', label='x(t) - rasa')
-    plt.plot(t, mengaControllingEffort, 'g', label='x(t) - manga')
+    plt.plot(mengaT, mengaControllingEffort, 'g', label='x(t) - manga')
     plt.title(finalString)
     plt.legend(loc='best')
     plt.xlabel('t')
