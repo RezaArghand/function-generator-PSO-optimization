@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import functions as func
-
-t = np.linspace(0, 10, 1000)
+t = np.linspace(-1, 1, 10000)
 
 
 def solveAndPlot(sstring):
@@ -28,4 +27,4 @@ def solveAndPlot(sstring):
     except:
         print('plot error! ###########################################')
 
-solveAndPlot('np.tanh(np.tanh(x0))+ 872.96+ -18.49+ -18.49+ -18.49+ -155.96+ -202.58+ -202.58')
+solveAndPlot('np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497')

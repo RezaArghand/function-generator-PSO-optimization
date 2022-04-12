@@ -5,6 +5,7 @@ import parameters as par
 import sympy as sp
 import functions as func
 from scipy.stats import logistic
+import mengaX as mengaArray
 
 x0 = sp.symbols("x0")
 
@@ -50,14 +51,14 @@ def mainCost(position):
             #     theString += '-x0*5000'
 
             mainFunc = finalString  # eval(finalString)
-            t = np.linspace(0, 10, 1000)
-            mengaX = []
+            t = np.linspace(-1, 1, 10000)
+            mengaX = mengaArray
             resultX = []
-            mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+            # mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
             for i in t:
-                menga = func.evalFunction(i, mengaString)
+                # menga = func.evalFunction(i, mengaString)
                 funResult = func.evalFunction(i, finalString)
-                mengaX.append(menga)
+                # mengaX.append(menga)
                 resultX.append(funResult)
             finalArray = []
             for i in range(len(mengaX)):
