@@ -89,7 +89,7 @@ def combinationGenerator(n):
     mainList = [i for i in range(n)]
     result = list(itertools.combinations_with_replacement(mainList, n))
     sizeOfResult = np.size(result)
-    random.shuffle(result)
+    # random.shuffle(result)
     print("combination list size = " + str(sizeOfResult))
     print(result[0])
     return result
@@ -99,11 +99,10 @@ def map_value(in_v, in_min, in_max, out_min, out_max):  # (3)
     """Helper method to map an input value (v_in)
        between alternative max/min ranges."""
 
-    v = (in_v - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
-    if v < out_min:
-        v = out_min
-    elif v > out_max:
-        v = out_max
+    v = out_min + ((out_max - out_min) / (in_max - in_min)) * (in_v - in_min)
+    if v < out_min or v > out_max:
+        v = out_max - out_min / in_max
+        print('maping error ocuured! #######################################')
 
     # result = int(np.floor(v))
     return v

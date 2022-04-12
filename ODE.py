@@ -361,52 +361,55 @@ mengaV = [0.0, 4.635728850540582, 8.39590336185174, 11.412171933833928, 13.79768
 
 
 def solveAndPlot(sstring):
-    finalString = sstring
+    try:
+        finalString = sstring
 
-    def ode(y, t):
-        x2, x3 = y  # x2 == possition , x3 == velocity
-        error = u - x2
-        funcError = func.evalFunction(error, finalString)
-        dydt = [x3, (-B * x3 - k * x2 + funcError) / M]
-        return dydt
+        def ode(y, t):
+            x2, x3 = y  # x2 == possition , x3 == velocity
+            error = u - x2
+            funcError = func.evalFunction(error, finalString)
+            dydt = [x3, (-B * x3 - k * x2 + funcError) / M]
+            return dydt
 
-    sol = odeint(ode, y0, t)
-    controlingEffort = []
+        sol = odeint(ode, y0, t)
+        controlingEffort = []
 
-    for i in sol[:, 0]:
-        error = u - i
-        funcError = func.evalFunction(error, finalString)
-        controlingEffort.append(funcError)
+        for i in sol[:, 0]:
+            error = u - i
+            funcError = func.evalFunction(error, finalString)
+            controlingEffort.append(funcError)
 
-    plt.plot(t, sol[:, 0], 'b', label='x(t) - rasa')
-    plt.plot(mengaT, mengaX, 'g', label='x(t) - manga')
-    plt.title(finalString)
-    plt.legend(loc='best')
-    plt.xlabel('t')
-    plt.ylabel('X')
-    plt.grid()
-    plt.savefig("0001plot_Position.png")
-    plt.close()
+        plt.plot(t, sol[:, 0], 'b', label='x(t) - rasa')
+        plt.plot(mengaT, mengaX, 'g', label='x(t) - manga')
+        plt.title(finalString)
+        plt.legend(loc='best')
+        plt.xlabel('t')
+        plt.ylabel('X')
+        plt.grid()
+        plt.savefig("0001plot_Position.png")
+        plt.close()
 
-    plt.plot(t, sol[:, 1], 'b', label='x(t) - rasa')
-    plt.plot(mengaT, mengaV, 'g', label='x(t) - manga')
-    plt.title(finalString)
-    plt.legend(loc='best')
-    plt.xlabel('t')
-    plt.ylabel('X')
-    plt.grid()
-    plt.savefig("001plot_Velocity.png")
-    plt.close()
+        plt.plot(t, sol[:, 1], 'b', label='x(t) - rasa')
+        plt.plot(mengaT, mengaV, 'g', label='x(t) - manga')
+        plt.title(finalString)
+        plt.legend(loc='best')
+        plt.xlabel('t')
+        plt.ylabel('X')
+        plt.grid()
+        plt.savefig("001plot_Velocity.png")
+        plt.close()
 
-    plt.plot(t, controlingEffort, 'b', label='x(t) - rasa')
-    plt.plot(mengaT, mengaControllingEffort, 'g', label='x(t) - manga')
-    plt.title(finalString)
-    plt.legend(loc='best')
-    plt.xlabel('t')
-    plt.ylabel('X')
-    plt.grid()
-    plt.savefig("01plot_CotrollingEffort.png")
-    plt.close()
+        plt.plot(t, controlingEffort, 'b', label='x(t) - rasa')
+        plt.plot(mengaT, mengaControllingEffort, 'g', label='x(t) - manga')
+        plt.title(finalString)
+        plt.legend(loc='best')
+        plt.xlabel('t')
+        plt.ylabel('X')
+        plt.grid()
+        plt.savefig("01plot_CotrollingEffort.png")
+        plt.close()
+    except:
+        print('ode plot error! ###########################################')
 
 # menga = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
 # solveAndPlot(menga)

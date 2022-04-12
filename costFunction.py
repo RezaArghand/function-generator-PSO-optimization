@@ -20,13 +20,15 @@ def mainCost(position):
     l_num_func = int(len(position) - 1)
     l_func = int(l_num_func / 2)
     combinationNumber = int(
-        np.floor(func.map_value(position[-1], par.min_of_variable, par.max_of_variable, 0, combinationsLength - 1)))
+        np.floor(func.map_value(1000000 * position[-1], 1000000 * par.min_of_variable, 1000000 * par.max_of_variable, 0,
+                                combinationsLength - 1)))
     combinationList = combinations[combinationNumber]
     for i in range(l_func):
         j = int(np.floor(position[i]))
         inputt.append(mainLib[j])
     for i in range(l_func, l_num_func):
-        value = func.map_value(position[i], par.min_of_variable, par.max_of_variable, -par.bound_of_realNumber,
+        value = func.map_value(position[i], par.min_of_variable, par.max_of_variable,
+                               -par.bound_of_realNumber,
                                par.bound_of_realNumber)
         stringValue = '+ ' + str(round(value, 2))
         inputt.append(stringValue)
