@@ -120,7 +120,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             realBestPosition = best_swarm_pos
             plotter.solveAndPlot(costF.bestFunc(best_swarm_pos))
             print(best_Possition)
-            print(costF.bestFunc(best_swarm_pos))
+            print('y = ' + costF.bestFunc(best_swarm_pos))
             if Iter < 2:
                 k = open("00results.txt", "w")
                 k.write("")

@@ -50,20 +50,20 @@ def mainCost(position):
             #     theString += '-x0*5000'
 
             mainFunc = finalString  # eval(finalString)
-            steps = 200
-            maxY = 20
-            dx = maxY / steps
-            mainX = np.linspace(0, 5, 1000)
-            secondCost = 0
+            t = np.linspace(0, 10, 1000)
+            mengaX = []
+            resultX = []
+            mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+            for i in t:
+                menga = func.evalFunction(i, mengaString)
+                funResult = func.evalFunction(i, finalString)
+                mengaX.append(menga)
+                resultX.append(funResult)
+            finalArray = []
+            for i in range(len(mengaX)):
+                finalArray.append(abs(mengaX[i] - resultX[i]))
+            result = sum(finalArray)
 
-            for i in range(len(mainX)):
-                xx = mainX[i]
-                primaryVal = 1.6 * xx + 3.4 * xx - 12.5
-                secondCost += abs(func.evalFunction(xx, finalString) - primaryVal)
-            # secondCost = secondCost / steps
-            result = secondCost
-            # print(position)
-            # result = firstCost
         except:
             result = 10000
             mainFunc = "error(1) : " + finalString
@@ -85,7 +85,7 @@ def bestFunc(position):
         result1 = sp.simplify(eval(funn))
     except:
         result1 = str(funn)
-    result = "y = " + str(result1)
+    result = str(result1)
     return result
 
 # pp = [1, 5, 11, 9, 12, 10, 1]

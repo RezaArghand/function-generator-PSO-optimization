@@ -28,11 +28,11 @@ max_iteration_number = 80000  # max iteration
 #            '(x0 ** 3)', '']
 # operators = ['*', '/', '+', '-', '**', ')', '(']
 
-funcLib = ['np.tanh(', 'x0', 'np.tanh(x0']
+funcLib = ['np.tanh(', 'x0']
 operators = ['*', '+', '-', ')', '(', '']
 
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
-finalLib = 2 * funcLib + operators
+finalLib = 3 * funcLib + operators
 max_of_variable = len(finalLib) - 1  # max domain
 min_of_variable = -len(finalLib) + 1  # min domain
 

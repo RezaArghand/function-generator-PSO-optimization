@@ -26,4 +26,6 @@ def solveAndPlot(sstring):
         plt.savefig("01plot.png")
         plt.close()
     except:
-        print('ode plot error! ###########################################')
+        print('plot error! ###########################################')
+
+# solveAndPlot('x0+2')
