@@ -118,7 +118,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             # print(best_swarm_pos)
             best_Possition = [math.floor(i) for i in best_swarm_pos]
             realBestPosition = best_swarm_pos
-            plotter.solveAndPlot(costF.bestFunc(best_swarm_pos))
+            # plotter.solveAndPlot(costF.bestFunc(best_swarm_pos))
             print(best_Possition)
             print('y = ' + costF.bestFunc(best_swarm_pos))
             if Iter < 2:
@@ -231,22 +231,22 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
         # end new randomization///////////////////////////////////////////////////////////////////////////////////////////////////
 
         # plot iteration ft cost function
-        if Iter % 10 == 0 and Iter != 0 and best_swarm_fitnessVal < 5000:
-            try:
-                plt.plot(iterPlot, fitnessPlot)
-                # plt.pause(0.05)
-                plt.xlabel("iteration", fontsize='13')  # adds a label in the x axis
-                plt.ylabel("cost function", fontsize='13')  # adds a label in the y axis
-                plt.title("Convergance")
-                # plt.legend(('YvsX'), loc='best')  # creates a legend to identify the plot
-                # plt.savefig('Y_X.png')  # saves the figure in the present directory
-                plt.grid()  # shows a grid under the plot
-
-                plt.savefig('02convergance.png')
-                plt.close()
-            except:
-                print('convergence plot error! ####################################')
-
+        # if Iter % 10 == 0 and Iter != 0 and best_swarm_fitnessVal < 5000:
+        #     try:
+        #         plt.plot(iterPlot, fitnessPlot)
+        #         # plt.pause(0.05)
+        #         plt.xlabel("iteration", fontsize='13')  # adds a label in the x axis
+        #         plt.ylabel("cost function", fontsize='13')  # adds a label in the y axis
+        #         plt.title("Convergance")
+        #         # plt.legend(('YvsX'), loc='best')  # creates a legend to identify the plot
+        #         # plt.savefig('Y_X.png')  # saves the figure in the present directory
+        #         plt.grid()  # shows a grid under the plot
+        #
+        #         plt.savefig('02convergance.png')
+        #         plt.close()
+        #     except:
+        #         print('convergence plot error! ####################################')
+        #
         fitnessPlot.append(best_swarm_fitnessVal)
         iterPlot.append(Iter)
 
