@@ -28,4 +28,4 @@ def solveAndPlot(sstring):
     except:
         print('plot error! ###########################################')
 
-# solveAndPlot('x0+2')
+solveAndPlot('np.tanh(np.tanh(x0))+ 872.96+ -18.49+ -18.49+ -18.49+ -155.96+ -202.58+ -202.58')
