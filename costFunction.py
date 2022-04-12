@@ -19,7 +19,8 @@ def mainCost(position):
     l_num_func = int(len(position) - 1)
     l_func = int(l_num_func / 2)
     combinationNumber = int(
-        np.floor(func.map_value(position[-1], par.min_of_variable, par.max_of_variable, 0, combinationsLength - 1)))
+        np.floor(func.map_value(1000000 * position[-1], 1000000 * par.min_of_variable, 1000000 * par.max_of_variable, 0,
+                                combinationsLength - 1)))
     combinationList = combinations[combinationNumber]
     for i in range(l_func):
         j = int(np.floor(position[i]))
@@ -57,7 +58,7 @@ def mainCost(position):
 
             for i in range(len(mainX)):
                 xx = mainX[i]
-                primaryVal = 1.6 * xx * xx + 3.4 * xx - 12.5
+                primaryVal = 1.6 * xx + 3.4 * xx - 12.5
                 secondCost += abs(func.evalFunction(xx, finalString) - primaryVal)
             # secondCost = secondCost / steps
             result = secondCost
