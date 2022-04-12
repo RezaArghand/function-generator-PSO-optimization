@@ -412,4 +412,5 @@ def solveAndPlot(sstring):
         print('ode plot error! ###########################################')
 
 # menga = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
-# solveAndPlot(menga)
+rasa = 'np.tanh(x0)+ -137.52+ -137.52+ 124.65+ 124.65+ 124.65+ 124.65+ 124.65+ -46.68+ -46.68 '
+solveAndPlot(rasa)
