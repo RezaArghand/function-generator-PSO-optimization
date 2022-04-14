@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import functions as func
-t = np.linspace(-1, 1, 10000)
+
+t = np.linspace(-10, 10, 5000)
 
 
 def solveAndPlot(sstring):
@@ -10,6 +11,7 @@ def solveAndPlot(sstring):
         mengaX = []
         resultX = []
         mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+        # mengaString='3.1*x0+12.6'
         for i in t:
             menga = func.evalFunction(i, mengaString)
             result = func.evalFunction(i, finalString)
@@ -23,8 +25,9 @@ def solveAndPlot(sstring):
         plt.ylabel('X')
         plt.grid()
         plt.savefig("01plot.png")
+        plt.show()
         plt.close()
     except:
-        print('plot error! ###########################################')
+        print('28.05*x0')
 
-solveAndPlot('np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497')
+# solveAndPlot('x0+75.28')

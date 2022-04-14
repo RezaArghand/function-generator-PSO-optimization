@@ -9,10 +9,8 @@ number_of_particles = 200  # particle count
 number_randomize_particles_fullArea = int(np.floor(0.25 * number_of_particles))
 number_randomize_particles_firstBitOfBest = int(np.floor(0.25 * number_of_particles))
 
-funcNum = 5
-varNum = funcNum * 2 + 1  # number of parameters in each particle
 damping_rate_W = 0.9  # inertia damper
-w_reset_iteration = 1500  # the iteration that w is reset
+w_reset_iteration = 30000  # the iteration that w is reset
 bound_of_realNumber = 1000
 satisfaction_cost_number = 0.5  # satisfaction point
 W = 0.9  # inertia
@@ -30,15 +28,13 @@ max_iteration_number = 80000  # max iteration
 
 funcLib = ['np.tanh(', 'x0']
 operators = ['*', '+', '-', ')', '(', '']
-
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
-finalLib = 3 * funcLib + operators
-max_of_variable = len(finalLib) - 1  # max domain
-min_of_variable = -len(finalLib) + 1  # min domain
-
-print(finalLib)
+finalLib = (10* funcLib + 5 * operators)
+dimention = len(finalLib) * 3  # functions order + numbers order + numbers(got to be mapped on the real number boundary
+max_of_variable = 1  # max domain
+min_of_variable = -1  # min domain
 
 # defining combination tuples:
 
-combinationList = func.combinationGenerator(varNum + 1)
-combinationListLength = len(combinationList)
+# combinationList = func.combinationGenerator(varNum + 1)
+# combinationListLength = len(combinationList)

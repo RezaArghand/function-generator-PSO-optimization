@@ -63,7 +63,7 @@ def normalizeLength(f1, f2):
     length2 = len(f2)
     nothing = ['']
     finalLib = []
-    maxLen = max(length1, length3, length2) * 3 + 1
+    maxLen = max(length1, length2) * 3 + 1
     newF1 = (maxLen // length1) * f1 + (maxLen % length1) * nothing
     newF2 = (maxLen // length2) * f2 + (maxLen % length2) * nothing
     # newF3 = (maxLen // length3) * f3 + (maxLen % length3) * nothing
@@ -88,7 +88,7 @@ def combinationGenerator(n):
     mainList = [i for i in range(n)]
     result = list(itertools.combinations_with_replacement(mainList, n))
     sizeOfResult = np.size(result)
-    # random.shuffle(result)
+    random.shuffle(result)
     print("combination list size = " + str(sizeOfResult))
     print(result[0])
     return result
@@ -106,6 +106,20 @@ def map_value(in_v, in_min, in_max, out_min, out_max):  # (3)
     # result = int(np.floor(v))
     return v
 
+
+def mamalSorting(position):
+    sortedArray = sorted(range(len(position)), key=lambda k: position[k])
+    omitableMembers = []
+    for i in range(len(position)):
+        if position[i] < 0 or position[i] == 0:
+            omitableMembers.append(i)
+    for i in omitableMembers:
+        sortedArray.remove(i)
+    result = sortedArray
+    return result
+
 # print((map_value(35.6, -150, 150, 0, 1356)))
 # print(evalFunction(25, 'np.sin(x0)'))
 # print(math.sin(25))
+# pos = [5, -4, -3, 2, 1]
+# print(mamalSorting(pos))

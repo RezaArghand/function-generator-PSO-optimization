@@ -11,35 +11,27 @@ x0 = sp.symbols("x0")
 
 
 def mainCost(position):
-    combinations = par.combinationList
-    combinationsLength = len(combinations)
-    mainLib = par.finalLib
-    inputt = []
     theString = []
-    inputt.append('')
-    l_num_func = int(len(position) - 1)
-    l_func = int(l_num_func / 2)
-    combinationNumber = int(
-        np.floor(func.map_value(1000000 * position[-1], 1000000 * par.min_of_variable, 1000000 * par.max_of_variable, 0,
-                                combinationsLength - 1)))
-    combinationList = combinations[combinationNumber]
-    for i in range(l_func):
-        j = int(np.floor(position[i]))
-        inputt.append(mainLib[j])
-    for i in range(l_func, l_num_func):
-        value = func.map_value(position[i], par.min_of_variable, par.max_of_variable, -par.bound_of_realNumber,
-                               par.bound_of_realNumber)
-        stringValue = '+ ' + str(round(value, 2))
-        inputt.append(stringValue)
-    inputt.append('')
-    for i in combinationList:
-        theString.append(inputt[i])
-    # print(position)
-    # print(inputt)
-    # print(combinationList)
-    # print(theString)
-    # a = input("go?")
-    # finalString = "".join(func.makeBalanced(theString))
+    StringLib = []
+    realNumberLib = []
+    for i in range(0, 2* int(len(position) / 3)): # function and numbers order list
+        StringLib.append(position[i])
+
+    for i in range(int(2 * len(position) / 3), len(position)): # numbers strings
+        realNum = func.map_value(100 * position[i], 100 * par.min_of_variable, 100 * par.max_of_variable, -par.bound_of_realNumber,
+                                 par.bound_of_realNumber)
+        theNum=round(realNum,2)
+        mappedNumber = '+ ' + str(theNum)+' *'
+        realNumberLib.append(mappedNumber)
+
+    mainLib = par.finalLib + realNumberLib # create main lib of functions and numbers
+
+    sortedListFunctions = func.mamalSorting(StringLib)   # sorted array
+
+    for i in sortedListFunctions:   # building the function based on the order
+        theString.append(mainLib[i])
+
+
     primaryString = "".join(theString)
     finalString = func.makeBalanced(primaryString)
 
@@ -51,19 +43,22 @@ def mainCost(position):
             #     theString += '-x0*5000'
 
             mainFunc = finalString  # eval(finalString)
-            t = np.linspace(-1, 1, 10000)
-            mengaX = mengaArray
+            t = np.linspace(-10, 10, 5000)
+            mengaX = []
             resultX = []
-            # mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+            mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+            # mengaString='3.4 * x0'
             for i in t:
-                # menga = func.evalFunction(i, mengaString)
+                menga = func.evalFunction(i, mengaString)
                 funResult = func.evalFunction(i, finalString)
-                # mengaX.append(menga)
+                mengaX.append(menga)
                 resultX.append(funResult)
             finalArray = []
-            for i in range(len(mengaX)):
+            for i in range(len(t)):
                 finalArray.append(abs(mengaX[i] - resultX[i]))
-            result = sum(finalArray)
+            result = 0
+            for i in finalArray:
+                result = result + i / len(finalArray)
 
         except:
             result = 10000
@@ -89,9 +84,10 @@ def bestFunc(position):
     result = str(result1)
     return result
 
-# pp = [1, 5, 11, 9, 12, 10, 1]
+# pp = [1, 5, 0, 0, 0, 0, 0]
 # #
 # print(str(costNumber(pp)))
+# print(str(bestFunc(pp)))
 
 # x = sp.symbols("x")
 #
