@@ -83,14 +83,21 @@ def colored(r, g, b, text):
     return "\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(r, g, b, text)
 
 
-def combinationGenerator(n):
+def combinationGenerator(rangeNumber, lengthNumber):
     print("generating combinations of answers___replacement is allowed")
-    mainList = [i for i in range(n)]
-    result = list(itertools.combinations_with_replacement(mainList, n))
+    mainList = [i for i in range(rangeNumber)]
+    result = list(itertools.combinations_with_replacement(mainList, lengthNumber))
+    # for c in itertools.combinations_with_replacement(mainList, n):
+    #     f = open("combination.txt", "a")
+    #
+    #     f.write(str(c))
+    #     f.write(',')
+    #     f.close()
     sizeOfResult = np.size(result)
-    random.shuffle(result)
+    # random.shuffle(result)
+    # print(result)
     print("combination list size = " + str(sizeOfResult))
-    print(result[0])
+    print(result[10])
     return result
 
 
@@ -118,8 +125,21 @@ def mamalSorting(position):
     result = sortedArray
     return result
 
+
+def simplifyFunction(functionString):
+    x0 = sp.symbols("x0")
+    np.tanh = sp.symbols("np.tanh")
+    result = sp.simplify(eval(functionString))
+    return result
+
+# print('((+-np.tanh( + 589.01 +  + -64.09 + +np.tanh( + -277.75 +  + -184.49 + np.tanh( + 259.69 + (np.tanh(-x0 + -289.99 +  + -254.33 +  + -294.25 +  + -56.78 +  + 23.12 +  + -176.02 + np.tanh(x0))))))))')
+# print(simplifyFunction('((+-np.tanh( + 589.01 +  + -64.09 + +np.tanh( + -277.75 +  + -184.49 + np.tanh( + 259.69 + (np.tanh(-x0 + -289.99 +  + -254.33 +  + -294.25 +  + -56.78 +  + 23.12 +  + -176.02 + np.tanh(x0))))))))'))
+# print(simplifyFunction('sp.tanh(x0)-12*x0+23*x0'))
 # print((map_value(35.6, -150, 150, 0, 1356)))
 # print(evalFunction(25, 'np.sin(x0)'))
 # print(math.sin(25))
 # pos = [5, -4, -3, 2, 1]
 # print(mamalSorting(pos))
+# x0 = sp.symbols("x0")
+# combinationGenerator(14, 5)
+# print(eval('np.sin(10)*x0'))

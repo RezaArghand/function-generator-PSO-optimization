@@ -30,4 +30,4 @@ def solveAndPlot(sstring):
     except:
         print('28.05*x0')
 
-# solveAndPlot('x0+75.28')
+# solveAndPlot('+ 252.82 *np.tanh(x0+ -416.53 *x0+x0+ -75.34 *+ -263.07 *+ -490.03 *+ -692.86 *-+ -69.74 *x0)')
