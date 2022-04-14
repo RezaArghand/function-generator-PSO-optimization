@@ -5,7 +5,6 @@ import numpy as np
 import sympy as sp
 from matplotlib import pyplot as plt
 import itertools
-import parameters as par
 
 
 def isBalanced(myStr):
@@ -59,20 +58,12 @@ def evalFunction(a, function):
     return result
 
 
-def evalFunctionDualFunc(a, b, function):
-    x0 = a
-    x1 = b
-    # result = sp.N(eval(function))
-    result = eval(function)
-    return result
-
-
 def normalizeLength(f1, f2):
     length1 = len(f1)
     length2 = len(f2)
     nothing = ['']
     finalLib = []
-    maxLen = max(length1, length3, length2) * 3 + 1
+    maxLen = max(length1, length2) * 3 + 1
     newF1 = (maxLen // length1) * f1 + (maxLen % length1) * nothing
     newF2 = (maxLen // length2) * f2 + (maxLen % length2) * nothing
     # newF3 = (maxLen // length3) * f3 + (maxLen % length3) * nothing
@@ -97,8 +88,7 @@ def combinationGenerator(n):
     mainList = [i for i in range(n)]
     result = list(itertools.combinations_with_replacement(mainList, n))
     sizeOfResult = np.size(result)
-    # random.shuffle(result)
-
+    random.shuffle(result)
     print("combination list size = " + str(sizeOfResult))
     print(result[0])
     return result
@@ -117,39 +107,19 @@ def map_value(in_v, in_min, in_max, out_min, out_max):  # (3)
     return v
 
 
-def functionStringGenerator(position):
-    combinations = par.combinationList
-    combinationsLength = len(combinations)
-    mainLib = par.finalLib
-    inputt = []
-    theString = []
-    inputt.append('')
-    l_num_func = int(len(position) - 1)
-    l_func = int(l_num_func / 2)
-    combinationNumber = int(
-        np.floor(map_value(position[-1], par.min_of_variable, par.max_of_variable, 0, combinationsLength - 1)))
-    combinationList = combinations[combinationNumber]
-    for i in range(l_func):
-        j = int(np.floor(position[i]))
-        inputt.append(mainLib[j])
-    for i in range(l_func, l_num_func):
-        value = map_value(position[i], par.min_of_variable, par.max_of_variable, -par.bound_of_realNumber,
-                          par.bound_of_realNumber)
-        stringValue = '+ ' + str(round(value, 2))
-        inputt.append(stringValue)
-    inputt.append('')
-    for i in combinationList:
-        theString.append(inputt[i])
-    # print(position)
-    # print(inputt)
-    # print(combinationList)
-    # print(theString)
-    # a = input("go?")
-    # finalString = "".join(func.makeBalanced(theString))
-    primaryString = "".join(theString)
-    finalString = makeBalanced(primaryString)
-    return finalString
+def mamalSorting(position):
+    sortedArray = sorted(range(len(position)), key=lambda k: position[k])
+    omitableMembers = []
+    for i in range(len(position)):
+        if position[i] < 0 or position[i] == 0:
+            omitableMembers.append(i)
+    for i in omitableMembers:
+        sortedArray.remove(i)
+    result = sortedArray
+    return result
 
 # print((map_value(35.6, -150, 150, 0, 1356)))
 # print(evalFunction(25, 'np.sin(x0)'))
 # print(math.sin(25))
+# pos = [5, -4, -3, 2, 1]
+# print(mamalSorting(pos))
