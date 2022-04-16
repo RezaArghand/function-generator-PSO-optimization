@@ -25,7 +25,7 @@ def solveAndPlot(sstring):
         plt.ylabel('X')
         plt.grid()
         plt.savefig("01plot.png")
-        plt.show()
+        # plt.show()
         plt.close()
     except:
         print('error in plotting')
