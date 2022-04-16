@@ -119,7 +119,7 @@ def mamalSorting(position):
     omitableMembers = []
     for i in range(len(position)):
         if position[i] < 0 or position[i] == 0:
-            omitableMembers.append(i)
+            omitableMembers.append(int(i))
     for i in omitableMembers:
         sortedArray.remove(i)
     result = sortedArray

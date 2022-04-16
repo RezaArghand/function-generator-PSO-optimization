@@ -23,10 +23,10 @@ max_iteration_number = 80000  # max iteration
 # funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x0', 'np.tan(', 'np.sign(']
 # operators = ['*', '/', '+', '-', '**', ')', '(']
 
-funcLib = ['', '', 'np.tanh(', 'tanh(x0']
-operators = ['*', '+', '-', ')', '(', '', '']
+funcLib = ['', 'np.tanh(', 'tanh(x0', 'x0']
+operators = ['*', '+', '-', ')', '(', '']
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
-finalLib = 3 * (10 * funcLib + 5 * operators)
+finalLib = (5 * funcLib + 3 * operators)
 numberCounts = 5
 lengthOfFunctionResult = 10
 
