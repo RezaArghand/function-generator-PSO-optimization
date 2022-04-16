@@ -13,6 +13,7 @@ x0 = sp.symbols("x0")
 def mainCost(position):
     combinations = par.combinationList
     combinationsLength = len(combinations)
+    print(combinationsLength)
     mainLib = par.finalLib
     inputt = []
     theString = []
@@ -23,13 +24,15 @@ def mainCost(position):
         np.floor(func.map_value(1000000 * position[-1], 1000000 * par.min_of_variable, 1000000 * par.max_of_variable, 0,
                                 combinationsLength - 1)))
     combinationList = combinations[combinationNumber]
+    # print(combinationList)
     for i in range(l_func):
         j = int(np.floor(position[i]))
         inputt.append(mainLib[j])
     for i in range(l_func, l_num_func):
-        value = func.map_value(position[i], par.min_of_variable, par.max_of_variable, -par.bound_of_realNumber,
+        value = func.map_value(100 * position[i], 100 * par.min_of_variable, 100 * par.max_of_variable,
+                               -par.bound_of_realNumber,
                                par.bound_of_realNumber)
-        stringValue = '+ ' + str(round(value, 2))
+        stringValue = str(round(value, 2))
         inputt.append(stringValue)
     inputt.append('')
     for i in combinationList:
@@ -51,19 +54,22 @@ def mainCost(position):
             #     theString += '-x0*5000'
 
             mainFunc = finalString  # eval(finalString)
-            t = np.linspace(-1, 1, 10000)
-            mengaX = mengaArray
+            t = np.linspace(-20, 20, 1000)
+            mengaX = []
             resultX = []
             # mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+            mengaString = '255*np.sign(x0)'
             for i in t:
-                # menga = func.evalFunction(i, mengaString)
+                menga = func.evalFunction(i, mengaString)
                 funResult = func.evalFunction(i, finalString)
-                # mengaX.append(menga)
+                mengaX.append(menga)
                 resultX.append(funResult)
             finalArray = []
             for i in range(len(mengaX)):
                 finalArray.append(abs(mengaX[i] - resultX[i]))
-            result = sum(finalArray)
+            result = 0
+            for i in finalArray:
+                result = result + i / len(finalArray)
 
         except:
             result = 10000
@@ -83,7 +89,8 @@ def costNumber(positon):
 def bestFunc(position):
     final, funn = mainCost(position)
     try:
-        result1 = sp.simplify(eval(funn))
+        x0 = sp.symbols('x0')
+        result1 = eval(funn)
     except:
         result1 = str(funn)
     result = str(result1)

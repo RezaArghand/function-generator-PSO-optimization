@@ -1,3 +1,4 @@
+import itertools
 import random
 
 import numpy as np
@@ -11,6 +12,7 @@ number_randomize_particles_firstBitOfBest = int(np.floor(0.25 * number_of_partic
 
 funcNum = 5
 varNum = funcNum * 2 + 1  # number of parameters in each particle
+finalFuncLength = 15
 damping_rate_W = 0.9  # inertia damper
 w_reset_iteration = 1500  # the iteration that w is reset
 bound_of_realNumber = 1000
@@ -28,7 +30,7 @@ max_iteration_number = 80000  # max iteration
 #            '(x0 ** 3)', '']
 # operators = ['*', '/', '+', '-', '**', ')', '(']
 
-funcLib = ['np.tanh(', 'x0']
+funcLib = ['np.tanh(', 'np.tanh(x0']
 operators = ['*', '+', '-', ')', '(', '']
 
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
@@ -40,5 +42,14 @@ print(finalLib)
 
 # defining combination tuples:
 
-combinationList = func.combinationGenerator(varNum + 1)
-combinationListLength = len(combinationList)
+# combinationList = func.combinationGenerator(varNum)
+# combinationListLength = len(combinationList)
+# print(combinationListLength)
+
+print("generating combinations of answers___replacement is allowed")
+mainList = [i for i in range(varNum)]
+combinationList = list(itertools.combinations_with_replacement(mainList, varNum))
+combinationListLength = np.size(combinationList)
+# random.shuffle(result)
+print("combination list size = " + str(combinationListLength))
+print(combinationList[-1])

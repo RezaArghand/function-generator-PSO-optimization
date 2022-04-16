@@ -89,6 +89,7 @@ def combinationGenerator(n):
     result = list(itertools.combinations_with_replacement(mainList, n))
     sizeOfResult = np.size(result)
     # random.shuffle(result)
+
     print("combination list size = " + str(sizeOfResult))
     print(result[0])
     return result
