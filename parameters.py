@@ -23,18 +23,15 @@ max_iteration_number = 80000  # max iteration
 # funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x0', 'np.tan(', 'np.sign(']
 # operators = ['*', '/', '+', '-', '**', ')', '(']
 
-funcLib = ['', 'np.tanh(', 'x0']
-operators = ['*', '+', '-', ')', '(']
+funcLib = ['', '', 'np.tanh(', 'tanh(x0']
+operators = ['*', '+', '-', ')', '(', '', '']
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
-finalLib = (funcLib + operators)
-numberCounts = 6
-lengthOfFunctionResult = 8
-rangeOfCombinationNumber = numberCounts + len(finalLib)
+finalLib = 3 * (10 * funcLib + 5 * operators)
+numberCounts = 5
+lengthOfFunctionResult = 10
 
 # defining combination tuples:
 
-combinationList = func.combinationGenerator(rangeOfCombinationNumber, lengthOfFunctionResult)
-combinationListLength = len(combinationList)
-dimention = lengthOfFunctionResult
-max_of_variable = combinationListLength  # max domain
-min_of_variable = -combinationListLength  # min domain
+dimention = 20
+max_of_variable = len(finalLib) - 1  # max domain
+min_of_variable = -len(finalLib) + 1  # min domain
