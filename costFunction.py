@@ -6,27 +6,37 @@ import sympy as sp
 import functions as func
 from scipy.stats import logistic
 import combinations_15 as mengaArray
+import time
+import multiprocessing
 
 x0 = sp.symbols("x0")
 
 
 def mainCost(position):
-    comb = par.combinationList
+    library = par.finalLib
     theString = []
     realNumberLib = []
-    combPos = int(np.floor(abs(position[0])))
-    choosenList = comb[combPos]
-    for i in range(1, len(position)):  # function and numbers order list
+    funcLib = []
+    for i in range(5, 10):  # function and numbers order list
         realNum = func.map_value(position[i], par.min_of_variable, par.max_of_variable,
                                  -par.bound_of_realNumber,
                                  par.bound_of_realNumber)
-        theNum = round(realNum, 2)
-        mappedNumber = ' + ' + str(theNum)
+        theNum = round(realNum, 4)
+        mappedNumber = str(theNum)
         realNumberLib.append(mappedNumber)
 
-    mainLib = par.finalLib + realNumberLib  # create main lib of functions and numbers
+    for i in range(0, 5):
+        pos = int(np.floor(abs(position[i])))
+        funcLib.append(library[pos])
 
-    for i in choosenList:
+    mainLib = funcLib + realNumberLib  # create main lib of functions and numbers
+
+    tempOrderList = []
+    for i in range(10, 20):
+        tempOrderList.append(position[i])
+
+    sortedList = func.mamalSorting(tempOrderList)
+    for i in sortedList:
         theString.append(mainLib[i])
 
     primaryString = "".join(theString)
@@ -40,20 +50,29 @@ def mainCost(position):
             #     theString += '-x0*5000'
 
             mainFunc = finalString  # eval(finalString)
-            t = np.linspace(-10, 10, 1000)
-            mengaX = []
-            resultX = []
+            timeArray = np.linspace(-10, 10, 1000)
+
             mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
             # mengaString='3.4 * x0'
-            for i in t:
-                menga = func.evalFunction(i, mengaString)
-                funResult = func.evalFunction(i, finalString)
-                mengaX.append(menga)
-                resultX.append(funResult)
+
             finalArray = []
-            for i in range(len(t)):
-                finalArray.append(abs(mengaX[i] - resultX[i]))
+
+            def calculateResults(t):
+                mengaX = func.evalFunction(t, mengaString)
+                resultX = func.evalFunction(t, finalString)
+                finalArray.append(abs(mengaX - resultX))
+
+            processes = []
+            for i in timeArray:
+                p = multiprocessing.Process(target=calculateResults, args=(i,))
+                processes.append(p)
+                p.start()
+
+            for process in processes:
+                process.join()
+
             result = 0
+
             for i in finalArray:
                 result = result + i / len(finalArray)
 
