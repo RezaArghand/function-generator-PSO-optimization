@@ -50,8 +50,8 @@ def mainCost(position):
             mainFunc = finalString  # eval(finalString)
             timeArray = np.linspace(-10, 10, 2000)
 
-            mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
-            # mengaString = '34 * x0 + 52.63'
+            # mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+            mengaString = '34 * x0 + 52.63'
 
             finalArray = []
 

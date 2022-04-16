@@ -118,7 +118,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             # print(best_swarm_pos)
             best_Possition = [math.floor(i) for i in best_swarm_pos]
             realBestPosition = best_swarm_pos
-            plotter.solveAndPlot(costF.bestFunc(best_swarm_pos))
+            # plotter.solveAndPlot(costF.bestFunc(best_swarm_pos))
             print(best_Possition)
             print('y = ' + costF.bestFunc(best_swarm_pos))
             if Iter < 2:
