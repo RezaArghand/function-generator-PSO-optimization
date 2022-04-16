@@ -62,14 +62,17 @@ def mainCost(position):
                 resultX = func.evalFunction(t, finalString)
                 finalArray.append(abs(mengaX - resultX))
 
-            processes = []
             for i in timeArray:
-                p = multiprocessing.Process(target=calculateResults, args=(i,))
-                processes.append(p)
-                p.start()
+                calculateResults(i)
 
-            for process in processes:
-                process.join()
+            # processes = []
+            # for i in timeArray:
+            #     p = multiprocessing.Process(target=calculateResults, args=(i,))
+            #     processes.append(p)
+            #     p.start()
+            #
+            # for process in processes:
+            #     process.join()
 
             result = 0
 
