@@ -26,7 +26,7 @@ max_iteration_number = 80000  # max iteration
 funcLib = ['', 'np.tanh(', 'tanh(x0', 'x0']
 operators = ['*', '+', '-', ')', '(', '']
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
-finalLib = (5 * funcLib + 3 * operators)
+finalLib = 10 * (5 * funcLib + 5 * operators)
 numberCounts = 5
 lengthOfFunctionResult = 10
 
