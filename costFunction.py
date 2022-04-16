@@ -30,11 +30,9 @@ def mainCost(position):
         funcLib.append(library[pos])
 
     mainLib = funcLib + realNumberLib  # create main lib of functions and numbers
-
     tempOrderList = []
     for i in range(10, 20):
         tempOrderList.append(position[i])
-
     sortedList = func.mamalSorting(tempOrderList)
     for i in sortedList:
         theString.append(mainLib[i])
@@ -50,32 +48,35 @@ def mainCost(position):
             #     theString += '-x0*5000'
 
             mainFunc = finalString  # eval(finalString)
-            timeArray = np.linspace(-10, 10, 1000)
+            timeArray = np.linspace(-10, 10, 2000)
 
             mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
-            # mengaString='3.4 * x0'
+            # mengaString = '34 * x0 + 52.63'
 
             finalArray = []
 
-            def calculateResults(t):
-                mengaX = func.evalFunction(t, mengaString)
-                resultX = func.evalFunction(t, finalString)
-                finalArray.append(abs(mengaX - resultX))
+            def calculateResults(value):
+                mengaX = func.evalFunction(value, mengaString)
+                resultX = func.evalFunction(value, finalString)
+                result = abs(mengaX - resultX)
+                finalArray.append(result)
+                # time.sleep(2)
+                # return result
+
+            # if __name__ == '__main__':
+            #     processes = []
+            #     for i in timeArray:
+            #         p = multiprocessing.Process(target=calculateResults, args=(i,))
+            #         processes.append(p)
+            #         p.start()
+            #
+            #     for process in processes:
+            #         process.join()
 
             for i in timeArray:
                 calculateResults(i)
 
-            # processes = []
-            # for i in timeArray:
-            #     p = multiprocessing.Process(target=calculateResults, args=(i,))
-            #     processes.append(p)
-            #     p.start()
-            #
-            # for process in processes:
-            #     process.join()
-
             result = 0
-
             for i in finalArray:
                 result = result + i / len(finalArray)
 

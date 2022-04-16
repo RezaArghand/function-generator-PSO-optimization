@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import functions as func
 
-t = np.linspace(-10, 10, 5000)
+t = np.linspace(-1, 1, 5000)
 
 
 def solveAndPlot(sstring):
@@ -28,6 +28,6 @@ def solveAndPlot(sstring):
         plt.show()
         plt.close()
     except:
-        print('28.05*x0')
+        print('error in plotting')
 
 # solveAndPlot('+ 252.82 *np.tanh(x0+ -416.53 *x0+x0+ -75.34 *+ -263.07 *+ -490.03 *+ -692.86 *-+ -69.74 *x0)')
