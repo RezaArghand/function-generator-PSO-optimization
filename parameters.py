@@ -5,13 +5,13 @@ import combinations_15
 import functions as func
 
 # parameters of PSO optimization algorithm
-number_of_particles = 500  # particle count
+number_of_particles = 200  # particle count
 number_randomize_particles_fullArea = int(np.floor(0.5 * number_of_particles))
 
 damping_rate_W = 0.9  # inertia damper
-w_reset_iteration = 30000  # the iteration that w is reset
+w_reset_iteration = 1500  # the iteration that w is reset
 bound_of_realNumber = 1000
-satisfaction_cost_number = 0.5  # satisfaction point
+satisfaction_cost_number = 0.01  # satisfaction point
 W = 0.9  # inertia
 C1 = 1.6  # cognitive (particle)
 C2 = 2.4  # social (swarm)

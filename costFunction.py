@@ -8,6 +8,7 @@ from scipy.stats import logistic
 import combinations_15 as mengaArray
 import time
 import multiprocessing
+from scipy.integrate import odeint
 
 x0 = sp.symbols("x0")
 
@@ -48,37 +49,45 @@ def mainCost(position):
             #     theString += '-x0*5000'
 
             mainFunc = finalString  # eval(finalString)
-            timeArray = np.linspace(-10, 10, 2000)
+            # ODE solution start ////////////////////////////////////////////////////////////////////////////////
+            M = 1
+            B = 10
+            k = 20
+            u = 1
+            t = np.linspace(0, 5, 2500)
 
-            # mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
-            mengaString = '34 * x0 + 52.63'
+            y0 = [0, 0]
 
-            finalArray = []
+            def ode(y, t):
+                x1, x2 = y  # x2 == possition , x3 == velocity
+                err = u - x1
+                funcErr = func.evalFunction(err, finalString)
+                dydt = [x2, (-B * x2 - k * x1 + funcErr) / M]
+                return dydt
 
-            def calculateResults(value):
-                mengaX = func.evalFunction(value, mengaString)
-                resultX = func.evalFunction(value, finalString)
-                result = abs(mengaX - resultX)
-                finalArray.append(result)
-                # time.sleep(2)
-                # return result
+            sol = odeint(ode, y0, t)
 
-            # if __name__ == '__main__':
-            #     processes = []
-            #     for i in timeArray:
-            #         p = multiprocessing.Process(target=calculateResults, args=(i,))
-            #         processes.append(p)
-            #         p.start()
-            #
-            #     for process in processes:
-            #         process.join()
+            position_x = sol[:, 0]
+            velocity_v = sol[:, 1]
+            controlingEffort = []
 
-            for i in timeArray:
-                calculateResults(i)
+            for i in position_x:
+                error = u - i
+                funcError = func.evalFunction(error, finalString)
+                controlingEffort.append(funcError)
 
-            result = 0
-            for i in finalArray:
-                result = result + i / len(finalArray)
+            secondCost = 0
+            integralArray = []
+            for i in position_x:
+                integralArray.append(abs(1.0 - i))
+
+            # firstCost = np.trapz(abs(controlingEffort))
+            secondCost = 0
+            for i in integralArray:
+                secondCost = secondCost + i / len(integralArray)
+
+            result = secondCost
+
 
         except:
             result = 10000
