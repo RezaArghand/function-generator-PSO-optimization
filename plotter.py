@@ -3,7 +3,7 @@ import numpy as np
 import functions as func
 import costFunction
 
-t = np.linspace(-1, 1, 5000)
+t = np.linspace(-0.0025, 0.0025, 2000)
 
 
 def solveAndPlot(sstring):
@@ -26,10 +26,9 @@ def solveAndPlot(sstring):
         plt.ylabel('X')
         plt.grid()
         plt.savefig("01plot.png")
-        plt.show()
+        # plt.show()
         plt.close()
     except:
         print('error in plotting')
 
-
-solveAndPlot('np.floor(41.0779*np.floor(x0))')
+# solveAndPlot('249.403*np.sign(x0)')
