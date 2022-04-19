@@ -54,7 +54,7 @@ def mainCost(position):
             B = 10
             k = 20
             u = 1
-            t = np.linspace(0, 5, 5000)
+            t = np.linspace(0, 5, 20000)
 
             y0 = [0, 0]
 
@@ -106,7 +106,7 @@ def mainCost(position):
             counter = 0
             for i in sol[:, 0]:
                 counter = counter + 1
-                if counter > 4000:
+                if counter > 18000:
                     if i < 0.25:
                         secondCost = 10000
                         break
