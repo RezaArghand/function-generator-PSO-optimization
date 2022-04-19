@@ -155,5 +155,5 @@ def solveAndPlot(sstring):
 
 
 # menga = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
-rasa = '--227.8429-810.4726**np.sin(x0-255.3649)'
+rasa = 'np.floor(x0*334.5164)'
 # solveAndPlot(rasa)

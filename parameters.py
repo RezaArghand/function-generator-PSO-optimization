@@ -10,7 +10,7 @@ number_randomize_particles_fullArea = int(np.floor(0.5 * number_of_particles))
 
 damping_rate_W = 0.9  # inertia damper
 w_reset_iteration = 1500  # the iteration that w is reset
-bound_of_realNumber = 1000
+bound_of_realNumber = 10000
 satisfaction_cost_number = 0.01  # satisfaction point
 W = 0.9  # inertia
 C1 = 1.6  # cognitive (particle)
