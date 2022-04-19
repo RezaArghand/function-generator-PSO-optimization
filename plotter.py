@@ -31,4 +31,5 @@ def solveAndPlot(sstring):
     except:
         print('error in plotting')
 
-# solveAndPlot('249.403*np.sign(x0)')
+
+solveAndPlot('675.0077/np.tanh(x0)*np.sqrt(179.947)')

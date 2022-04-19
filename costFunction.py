@@ -54,7 +54,7 @@ def mainCost(position):
             B = 10
             k = 20
             u = 1
-            t = np.linspace(0, 5, 2500)
+            t = np.linspace(0, 5, 5000)
 
             y0 = [0, 0]
 
@@ -67,18 +67,16 @@ def mainCost(position):
 
             sol = odeint(ode, y0, t)
 
-            position_x = sol[:, 0]
-            velocity_v = sol[:, 1]
             controlingEffort = []
 
-            for i in position_x:
+            for i in sol[:, 0]:
                 error = u - i
                 funcError = func.evalFunction(error, finalString)
                 controlingEffort.append(funcError)
 
             secondCost = 0
             integralArray = []
-            for i in position_x:
+            for i in sol[:, 0]:
                 integralArray.append(abs(1.0 - i))
 
             # firstCost = np.trapz(abs(controlingEffort))
@@ -86,8 +84,40 @@ def mainCost(position):
             for i in integralArray:
                 secondCost = secondCost + i / len(integralArray)
 
-            result = secondCost
+            firstCost = 0
+            for i in controlingEffort:
+                firstCost = firstCost + abs(i) / len(controlingEffort)
 
+            vibration = 0
+            vibPos = False
+            invalidVib = True
+            for i in sol[:, 0]:
+                if vibPos == False:
+                    if i > 1.02:
+                        vibPos = True
+                        vibration = vibration + 1
+                elif vibPos:
+                    if i < 0.98:
+                        vibPos = False
+                        vibration = vibration + 1
+                if abs(i - 1) < 0.02:
+                    invalidVib = False
+
+            counter = 0
+            for i in sol[:, 0]:
+                counter = counter + 1
+                if counter > 4000:
+                    if i < 0.25:
+                        secondCost = 10000
+                        break
+
+            thirdCost = 0
+            if invalidVib:
+                thirdCost = 10000
+            else:
+                thirdCost = vibration
+
+            result = firstCost + 5000 * secondCost + thirdCost
 
         except:
             result = 10000
