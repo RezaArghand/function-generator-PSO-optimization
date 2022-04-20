@@ -9,7 +9,8 @@ import time
 import multiprocessing
 from scipy.integrate import odeint
 
-x0 = sp.symbols("x0")
+x_0 = sp.symbols("x_0")
+x_1 = sp.symbols("x_1")
 
 
 def mainCost(position):
@@ -21,7 +22,7 @@ def mainCost(position):
         realNum = func.map_value(position[i], par.min_of_variable, par.max_of_variable,
                                  -par.bound_of_realNumber,
                                  par.bound_of_realNumber)
-        theNum = round(realNum, 4)
+        theNum = round(realNum, 2)
         mappedNumber = str(theNum)
         realNumberLib.append(mappedNumber)
 
@@ -40,7 +41,7 @@ def mainCost(position):
     primaryString = "".join(theString)
     finalString = func.makeBalanced(primaryString)
 
-    if 'x0' in finalString:
+    if 'x_0' in finalString and 'x_1' in finalString:
         try:
             # if 'x0' in theString:
             #     theString += ''
@@ -58,9 +59,9 @@ def mainCost(position):
             y0 = [0, 0]
 
             def ode(y, t):
-                x1, x2 = y  # x2 == possition , x3 == velocity
+                x1, x2 = y  # x1 == possition , x2 == velocity
                 err = u - x1
-                funcErr = func.evalFunction(err, finalString)
+                funcErr = func.evalFunction(err, x2, finalString)
                 dydt = [x2, (-B * x2 - k * x1 + funcErr) / M]
                 return dydt
 
@@ -116,7 +117,7 @@ def mainCost(position):
             else:
                 thirdCost = vibration
 
-            result = firstCost + 5000 * secondCost + thirdCost
+            result = firstCost + 1000 * secondCost + thirdCost
 
         except:
             result = 10000
@@ -136,7 +137,8 @@ def costNumber(positon):
 def bestFunc(position):
     final, funn = mainCost(position)
     try:
-        x0 = sp.symbols("x0")
+        x0 = sp.symbols("x_0")
+        x_1 = sp.symbols('x_1')
         # np.tanh = sp.symbols("np.tanh")
         result1 = eval(funn)
         # result1 = sp.simplify(eval(funn))
@@ -153,7 +155,7 @@ def bestFunc(position):
 # x = sp.symbols("x")
 #
 # x = 2
-# h = eval('4*x')
+
 # print(h)
 # print(func.sigmoid(5.6))
 # print((np.tan(7 - np.cos(8))))

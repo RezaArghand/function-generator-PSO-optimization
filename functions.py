@@ -51,8 +51,9 @@ def sigmoid(input):
     return result
 
 
-def evalFunction(a, function):
-    x0 = a
+def evalFunction(a, b, function):
+    x_0 = a
+    x_1 = b
     # result = sp.N(eval(function))
     result = eval(function)
     return result
@@ -127,19 +128,8 @@ def mamalSorting(position):
 
 
 def simplifyFunction(functionString):
-    x0 = sp.symbols("x0")
+    x_0 = sp.symbols("x_0")
+    x_1 = sp.symbols('x_1')
     np.tanh = sp.symbols("np.tanh")
     result = sp.simplify(eval(functionString))
     return result
-
-# print('((+-np.tanh( + 589.01 +  + -64.09 + +np.tanh( + -277.75 +  + -184.49 + np.tanh( + 259.69 + (np.tanh(-x0 + -289.99 +  + -254.33 +  + -294.25 +  + -56.78 +  + 23.12 +  + -176.02 + np.tanh(x0))))))))')
-# print(simplifyFunction('((+-np.tanh( + 589.01 +  + -64.09 + +np.tanh( + -277.75 +  + -184.49 + np.tanh( + 259.69 + (np.tanh(-x0 + -289.99 +  + -254.33 +  + -294.25 +  + -56.78 +  + 23.12 +  + -176.02 + np.tanh(x0))))))))'))
-# print(simplifyFunction('sp.tanh(x0)-12*x0+23*x0'))
-# print((map_value(35.6, -150, 150, 0, 1356)))
-# print(evalFunction(25, 'np.sin(x0)'))
-# print(math.sin(25))
-# pos = [5, -4, -3, 2, 1]
-# print(mamalSorting(pos))
-# x0 = sp.symbols("x0")
-# combinationGenerator(14, 5)
-# print(eval('np.sin(10)*x0'))
