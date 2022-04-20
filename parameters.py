@@ -1,7 +1,6 @@
 import random
 
 import numpy as np
-import combinations_15
 import functions as func
 
 # parameters of PSO optimization algorithm

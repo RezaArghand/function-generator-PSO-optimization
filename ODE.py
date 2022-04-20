@@ -8,7 +8,6 @@ B = 10
 k = 20
 u = 1
 t = np.linspace(0, 5, 20000)
-mengaT = np.linspace(0, 5, 500)
 y0 = [0, 0]
 
 
@@ -155,5 +154,5 @@ def solveAndPlot(sstring):
 
 
 # menga = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
-rasa = 'np.floor(x0*334.5164)'
+rasa = '1072.5775/np.tanh(x0)'
 # solveAndPlot(rasa)

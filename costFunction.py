@@ -5,7 +5,6 @@ import parameters as par
 import sympy as sp
 import functions as func
 from scipy.stats import logistic
-import combinations_15 as mengaArray
 import time
 import multiprocessing
 from scipy.integrate import odeint
@@ -77,7 +76,7 @@ def mainCost(position):
             secondCost = 0
             integralArray = []
             for i in sol[:, 0]:
-                integralArray.append(abs(1.0 - i))
+                integralArray.append(abs(u - i))
 
             # firstCost = np.trapz(abs(controlingEffort))
             secondCost = 0
