@@ -3,7 +3,7 @@ import numpy as np
 import functions as func
 import costFunction
 
-t = np.linspace(-0.0025, 0.0025, 2000)
+t = np.linspace(-10, 10, 2000)
 
 
 def solveAndPlot(sstring):
@@ -11,11 +11,11 @@ def solveAndPlot(sstring):
         finalString = sstring
         mengaX = []
         resultX = []
-        mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+        mengaString = 'np.tanh(np.tanh(np.tanh(np.tanh(x_0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
         # mengaString = '3.1*x0+12.6'
         for i in t:
-            menga = func.evalFunction(i, mengaString)
-            result = func.evalFunction(i, finalString)
+            menga = func.evalFunction(i, 0, mengaString)
+            result = func.evalFunction(i, 0, finalString)
             mengaX.append(menga)
             resultX.append(result)
         plt.plot(t, resultX, 'b', label='x(t) - rasa')
@@ -26,9 +26,9 @@ def solveAndPlot(sstring):
         plt.ylabel('X')
         plt.grid()
         plt.savefig("01plot.png")
-        # plt.show()
+        plt.show()
         plt.close()
     except:
         print('error in plotting')
 
-# solveAndPlot('675.0077/np.tanh(x0)*np.sqrt(179.947)')
+# solveAndPlot('999.967*np.tanh(np.tanh(x_0))')

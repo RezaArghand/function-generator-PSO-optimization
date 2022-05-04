@@ -17,16 +17,17 @@ def solveAndPlot(sstring):
     def ode(y, t):
         x2, x3 = y  # x2 == possition , x3 == velocity
         error = u - x2
-        funcError = func.evalFunction(error, finalString)
+        newErr = u - x3
+        funcError = func.evalFunction(error, newErr, finalString)
         dydt = [x3, (-B * x3 - k * x2 + funcError) / M]
         return dydt
 
-    mengaFunc = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+    mengaFunc = 'np.tanh(np.tanh(np.tanh(np.tanh(x_0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
 
     def odeMenga(y, t):
         x2, x3 = y  # x2 == possition , x3 == velocity
         error = u - x2
-        funcError = func.evalFunction(error, mengaFunc)
+        funcError = func.evalFunctionOneVariable(error, mengaFunc)
         dydt = [x3, (-B * x3 - k * x2 + funcError) / M]
         return dydt
 
@@ -37,12 +38,13 @@ def solveAndPlot(sstring):
     mengaControlingEffort = []
     for i in sol[:, 0]:
         error = u - i
+
         funcError = func.evalFunction(error, finalString)
         controlingEffort.append(funcError)
 
     for i in solMenga[:, 0]:
         errorMenga = u - i
-        funcErrorMenga = func.evalFunction(errorMenga, mengaFunc)
+        funcErrorMenga = func.evalFunctionOneVariable(errorMenga, mengaFunc)
         mengaControlingEffort.append(funcErrorMenga)
     firstCost = 0
     for i in controlingEffort:
@@ -128,7 +130,7 @@ def solveAndPlot(sstring):
     plt.xlabel('t')
     plt.ylabel('X')
     plt.grid()
-    # plt.show()
+    plt.show()
     plt.savefig("0001plot_Position.png")
     plt.close()
 
@@ -154,5 +156,5 @@ def solveAndPlot(sstring):
 
 
 # menga = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
-rasa = '1072.5775/np.tanh(x0)'
-# solveAndPlot(rasa)
+rasa = '2929.53/np.sign(x_1+x_0)'
+solveAndPlot(rasa)

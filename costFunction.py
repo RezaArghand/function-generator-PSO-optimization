@@ -41,7 +41,7 @@ def mainCost(position):
     primaryString = "".join(theString)
     finalString = func.makeBalanced(primaryString)
 
-    if 'x_0' in finalString and 'x_1' in finalString:
+    if True:  # 'x_0' in finalString and 'x_1' in finalString:
         try:
             # if 'x0' in theString:
             #     theString += ''
@@ -69,9 +69,10 @@ def mainCost(position):
 
             controlingEffort = []
 
-            for i in sol[:, 0]:
-                error = u - i
-                funcError = func.evalFunction(error, finalString)
+            for i in range(len(sol[:, 0])):
+                error = u - sol[i][0]
+                xDot = sol[i][1]
+                funcError = func.evalFunction(error, xDot, finalString)
                 controlingEffort.append(funcError)
 
             secondCost = 0
