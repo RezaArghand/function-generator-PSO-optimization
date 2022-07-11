@@ -1,0 +1,70 @@
+
+ iteration => 0 
+ best cost => 254.27936815990435 
+ best position => [4, -9, 5, 8, 0, 1, 6, 0, -7, 8, -3] 
+ best function => np.tanh(np.tanh(x0-----np.tanh(626.2-581.57))) 
+
+ iteration => 10 
+ best cost => 254.0346193646854 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 4] 
+ best function => np.tanh(x0**-np.tanh(-461.06-290.92-290.92-290.92-851.74-851.74)) 
+
+ iteration => 20 
+ best cost => 254.0346193646854 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 4] 
+ best function => np.tanh(x0**-np.tanh(-461.06-290.92-290.92-290.92-851.74-851.74)) 
+
+ iteration => 30 
+ best cost => 254.0346193646854 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 4] 
+ best function => np.tanh(x0**-np.tanh(-461.06-290.92-290.92-290.92-851.74-851.74)) 
+
+ iteration => 40 
+ best cost => 254.0346193646854 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 4] 
+ best function => np.tanh(x0**-np.tanh(-461.06-290.92-290.92-290.92-851.74-851.74)) 
+
+ iteration => 50 
+ best cost => 254.03461936468506 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 5] 
+ best function => np.tanh(x0)-np.tanh(np.tanh(np.tanh(np.tanh(-461.06-290.92-290.92-290.92)))) 
+
+ iteration => 60 
+ best cost => 254.03461936468506 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 5] 
+ best function => np.tanh(x0)-np.tanh(np.tanh(np.tanh(np.tanh(-461.06-290.92-290.92-290.92)))) 
+
+ iteration => 70 
+ best cost => 254.034619364685 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 5] 
+ best function => np.tanh(x0)--------461.04-290.19 
+
+ iteration => 80 
+ best cost => 254.034619364685 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 5] 
+ best function => np.tanh(x0)--------461.04-290.19 
+
+ iteration => 90 
+ best cost => 254.034619364685 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 5] 
+ best function => np.tanh(x0)--------461.04-290.19 
+
+ iteration => 100 
+ best cost => 254.034619364685 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 5] 
+ best function => np.tanh(x0)--------461.04-290.19 
+
+ iteration => 110 
+ best cost => 254.034619364685 
+ best position => [5, -6, 9, 8, 0, -6, -4, 6, -10, -5, 5] 
+ best function => np.tanh(x0)--------461.04-290.19 
+
+ iteration => 120 
+ best cost => 254.02289062244563 
+ best position => [3, 6, 8, 2, 5, 5, 10, 8, 9, 1, 5] 
+ best function => np.tanh(x0--np.tanh(np.tanh(np.tanh(np.tanh(np.tanh(np.tanh(np.tanh(np.tanh(x0))))))))) 
+
+ iteration => 130 
+ best cost => 254.02289062244563 
+ best position => [3, 6, 8, 2, 5, 5, 10, 8, 9, 1, 5] 
+ best function => np.tanh(x0--np.tanh(np.tanh(np.tanh(np.tanh(np.tanh(np.tanh(np.tanh(np.tanh(x0))))))))) 
