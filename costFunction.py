@@ -18,7 +18,7 @@ def mainCost(position):
     theString = []
     realNumberLib = []
     funcLib = []
-    for i in range(5, 10):  # function and numbers order list
+    for i in range(15, 20):  # function and numbers order list
         realNum = func.map_value(position[i], par.min_of_variable, par.max_of_variable,
                                  -par.bound_of_realNumber,
                                  par.bound_of_realNumber)
@@ -26,13 +26,13 @@ def mainCost(position):
         mappedNumber = str(theNum)
         realNumberLib.append(mappedNumber)
 
-    for i in range(0, 5):
+    for i in range(0, 15):
         pos = int(np.floor(abs(position[i])))
         funcLib.append(library[pos])
 
     mainLib = funcLib + realNumberLib  # create main lib of functions and numbers
     tempOrderList = []
-    for i in range(10, 20):
+    for i in range(20, 40):
         tempOrderList.append(position[i])
     sortedList = func.mamalSorting(tempOrderList)
     for i in sortedList:
@@ -118,7 +118,7 @@ def mainCost(position):
             else:
                 thirdCost = vibration
 
-            result = firstCost + 1000 * secondCost + thirdCost
+            result = 10 * secondCost + thirdCost
 
         except:
             result = 10000

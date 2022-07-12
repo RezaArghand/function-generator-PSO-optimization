@@ -112,24 +112,28 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
 
         # after every 10 iterations
         # print iteration number and best fitness value so far
-        if Iter % 10 == 0:
-            print("Iter = " + str(Iter) + " best fitness = %.15f" %
+        if Iter % 5 == 0:
+                print("Iter = " + str(Iter) + " best fitness = %.15f" %
                   best_swarm_fitnessVal)
-            # print(best_swarm_pos)
-            best_Possition = [math.floor(i) for i in best_swarm_pos]
-            realBestPosition = best_swarm_pos
-            # plotter.solveAndPlot(costF.bestFunc(best_swarm_pos))
-            print(best_Possition)
-            print('y = ' + costF.bestFunc(best_swarm_pos))
-            if Iter < 2:
-                k = open("00results.txt", "w")
-                k.write("")
-                k.close()
-            f = open("00results.txt", "a")
+                # print(best_swarm_pos)
+                best_Possition = [math.floor(i) for i in best_swarm_pos]
+                realBestPosition = best_swarm_pos
+                # plotter.solveAndPlot(costF.bestFunc(best_swarm_pos))
+                print(best_Possition)
+                print('y = ' + costF.bestFunc(best_swarm_pos))
+                if Iter < 2:
+                    k = open("00results.txt", "w")
+                    k.write("")
+                    k.close()
+                f = open("00results.txt", "r+")
 
-            f.write("\n iteration => %s \n best cost => %s \n best position => %s \n best function => %s \n" % (
-                str(Iter), best_swarm_fitnessVal, str(best_Possition), costF.bestFunc(best_swarm_pos)))
-            f.close()
+                newContent=("\n iteration => %s \n best cost => %s \n best position => %s \n best function => %s \n" % (
+                    str(Iter), best_swarm_fitnessVal, str(best_Possition), costF.bestFunc(best_swarm_pos)))
+                content = f.read()
+                f.seek(0)
+                finalContent = newContent + content
+                f.write(finalContent)
+                f.close()    
         for i in range(n):  # process each particle
 
             # compute new velocity of curr particle

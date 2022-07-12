@@ -4,8 +4,8 @@ import numpy as np
 import functions as func
 
 # parameters of PSO optimization algorithm
-number_of_particles = 2000  # particle count
-number_randomize_particles_fullArea = int(np.floor(0.5 * number_of_particles))
+number_of_particles = 500  # particle count
+number_randomize_particles_fullArea = int(np.floor(0.2 * number_of_particles))
 
 damping_rate_W = 0.9  # inertia damper
 w_reset_iteration = 1500  # the iteration that w is reset
@@ -32,6 +32,6 @@ lengthOfFunctionResult = 10
 
 # defining combination tuples:
 
-dimention = 20
+dimention = 40
 max_of_variable = len(finalLib) - 1  # max domain
 min_of_variable = -len(finalLib) + 1  # min domain
