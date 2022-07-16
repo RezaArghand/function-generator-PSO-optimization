@@ -48,7 +48,7 @@ def mainCost(position):
             # else:
             #     theString += '-x0*5000'
 
-            mainFunc = finalString  # eval(finalString)
+            result=100000  # initiate cost function
             # ODE solution start ////////////////////////////////////////////////////////////////////////////////
             M = 1
             B = 10
@@ -119,7 +119,7 @@ def mainCost(position):
                 thirdCost = vibration
 
             result = 10 * secondCost + thirdCost
-
+            mainFunc = finalString  # eval(finalString)
         except:
             result = 10000
             mainFunc = "error(1) : " + finalString
