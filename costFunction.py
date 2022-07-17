@@ -18,7 +18,7 @@ def mainCost(position):
     theString = []
     realNumberLib = []
     funcLib = []
-    for i in range(15, 20):  # function and numbers order list
+    for i in range(15, 30):  # function and numbers order list
         realNum = func.map_value(position[i], par.min_of_variable, par.max_of_variable,
                                  -par.bound_of_realNumber,
                                  par.bound_of_realNumber)
@@ -32,7 +32,7 @@ def mainCost(position):
 
     mainLib = funcLib + realNumberLib  # create main lib of functions and numbers
     tempOrderList = []
-    for i in range(20, 40):
+    for i in range(30, 60):
         tempOrderList.append(position[i])
     sortedList = func.mamalSorting(tempOrderList)
     for i in sortedList:
@@ -64,8 +64,11 @@ def mainCost(position):
                 funcErr = func.evalFunction(err, x2, finalString)
                 dydt = [x2, (-B * x2 - k * x1 + funcErr) / M]
                 return dydt
-
+            
             sol = odeint(ode, y0, t)
+            
+            
+            
 
             controlingEffort = []
 
@@ -118,7 +121,7 @@ def mainCost(position):
             else:
                 thirdCost = vibration
 
-            result = 10 * secondCost + thirdCost
+            result = 1000 * secondCost + firstCost
             mainFunc = finalString  # eval(finalString)
         except:
             result = 10000
