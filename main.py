@@ -125,6 +125,9 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                     k = open("00results.txt", "w")
                     k.write("")
                     k.close()
+                    # M = open("allStrings.txt", "w")
+                    # M.write("")
+                    # M.close()
                 f = open("00results.txt", "r+")
 
                 newContent=("\n iteration => %s \n best cost => %s \n best position => %s \n best function => %s \n" % (

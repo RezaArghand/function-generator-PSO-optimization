@@ -18,15 +18,16 @@ max_iteration_number = 80000  # max iteration
 # end parameters of PSO optimization
 
 # function library
-funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x_0 ', 'x_1 ', 'np.tan(', 'np.sign(', 'np.sin(x_0 ',
-           'np.exp(x_0 ', 'np.sqrt(x_0 ', 'np.floor(x_0 ', 'x_0 ', 'np.tan(x_0', 'np.sign(x_0', 'np.tanh(',
-           'np.tanh(x_ 0)',
-           'np.sin(x_1 ', 'np.exp(x_1 ', 'np.sqrt(x_1 ', 'np.floor(x_1 ', 'np.tan(x_1 ', 'np.sign(x_1 ', 'np.tanh(',
-           'np.tanh(x_1) ']
+# funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x_0 ', 'x_1 ', 'np.tan(', 'np.sign(', 'np.sin(x_0 ',
+#            'np.exp(x_0 ', 'np.sqrt(x_0 ', 'np.floor(x_0 ', 'x_0 ', 'np.tan(x_0', 'np.sign(x_0', 'np.tanh(',
+#            'np.tanh(x_ 0)',
+#            'np.sin(x_1 ', 'np.exp(x_1 ', 'np.sqrt(x_1 ', 'np.floor(x_1 ', 'np.tan(x_1 ', 'np.sign(x_1 ', 'np.tanh(',
+#            'np.tanh(x_1) ']
+funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x_0 ', 'x_1 ', 'np.tan(', 'np.sign(','np.tanh(']
 operators = ['*', '/', '+', '-', '**', ')', '(']
 
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
-finalLib = (funcLib + 4 * operators)
+finalLib = (funcLib + operators)
 numberCounts = 5
 lengthOfFunctionResult = 10
 

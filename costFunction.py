@@ -40,15 +40,24 @@ def mainCost(position):
 
     primaryString = "".join(theString)
     finalString = func.makeBalanced(primaryString)
+    
+    # # reading all functions to decide about them
+    # f = open("allStrings.txt", "r+")
+    # content = f.read()
+    # newContent=("\n string => %s "% (str(finalString)))
+    # f.seek(0)
+    # finalContent = newContent + content
+    # f.write(finalContent)
+    # f.close()    
 
-    if True:  # 'x_0' in finalString and 'x_1' in finalString:
+    if True:  #'x_0' in finalString or 'x_1' in finalString:
         try:
             # if 'x0' in theString:
             #     theString += ''
             # else:
             #     theString += '-x0*5000'
 
-            result=100000  # initiate cost function
+            result=100000.0  # initiate cost function
             # ODE solution start ////////////////////////////////////////////////////////////////////////////////
             M = 1
             B = 10
@@ -78,17 +87,17 @@ def mainCost(position):
                 funcError = func.evalFunction(error, xDot, finalString)
                 controlingEffort.append(funcError)
 
-            secondCost = 0
+            
             integralArray = []
             for i in sol[:, 0]:
                 integralArray.append(abs(u - i))
 
             # firstCost = np.trapz(abs(controlingEffort))
-            secondCost = 0
+            secondCost = 0  # main cost calculation
             for i in integralArray:
                 secondCost = secondCost + i / len(integralArray)
 
-            firstCost = 0
+            firstCost = 0  # controlling effort calculation
             for i in controlingEffort:
                 firstCost = firstCost + abs(i) / len(controlingEffort)
 
@@ -124,7 +133,7 @@ def mainCost(position):
             result = 1000 * secondCost + firstCost
             mainFunc = finalString  # eval(finalString)
         except:
-            result = 10000
+            result = 10000.0
             mainFunc = "error(1) : " + finalString
     else:
         result = 15000
