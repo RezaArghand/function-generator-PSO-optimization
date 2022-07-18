@@ -130,7 +130,8 @@ def mainCost(position):
             else:
                 thirdCost = vibration
 
-            result = 1000 * secondCost + firstCost
+            maxOfControllingEffort=max(max(controlingEffort),abs(min(controlingEffort)))
+            result = 10 * (secondCost + 0.001 * firstCost + 0.01 * maxOfControllingEffort)
             mainFunc = finalString  # eval(finalString)
         except:
             result = 10000.0
