@@ -112,9 +112,8 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
 
         # after every 10 iterations
         # print iteration number and best fitness value so far
-        if Iter % 5 == 0:
-                print("Iter = " + str(Iter) + " best fitness = %.15f" %
-                  best_swarm_fitnessVal)
+        if Iter % 1 == 0:
+                print("Iter = " + str(Iter) + " best fitness = %.15f" % best_swarm_fitnessVal)
                 # print(best_swarm_pos)
                 best_Possition = [math.floor(i) for i in best_swarm_pos]
                 realBestPosition = best_swarm_pos
@@ -147,8 +146,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                 swarm[i].velocity[k] = (
                         (w * swarm[i].velocity[k]) +
                         (c1 * r1 * (swarm[i].best_part_pos[k] - swarm[i].position[k])) +
-                        (c2 * r2 *
-                         (best_swarm_pos[k] - swarm[i].position[k]))
+                        (c2 * r2 * (best_swarm_pos[k] - swarm[i].position[k]))
                 )
 
                 # if velocity[k] is not in [minx, max]

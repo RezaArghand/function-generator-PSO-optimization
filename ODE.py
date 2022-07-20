@@ -2,50 +2,89 @@ import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 import functions as func
+from scipy.integrate import solve_ivp
+import sympy as sp
 
 M = 1
 B = 10
 k = 20
 u = 1
-t = np.linspace(0, 5, 20000)
-y0 = [0, 0]
-
+x_0 = sp.symbols("x_0") # position
+x_1 = sp.symbols("x_1") # velocity
+x_3 = sp.symbols("x_3") # integral
 
 def solveAndPlot(sstring):
     finalString = sstring
 
-    def ode(y, t):
-        x2, x3 = y  # x2 == possition , x3 == velocity
-        error = u - x2
-        newErr = u - x3
-        funcError = func.evalFunction(error, newErr, finalString)
-        dydt = [x3, (-B * x3 - k * x2 + funcError) / M]
-        return dydt
+    # def ode(y, t):
+    #     x2, x3 = y  # x2 == possition , x3 == velocity
+    #     error = u - x2
+    #     newErr = u - x3
+    #     funcError = func.evalFunction(error, newErr, finalString)
+    #     dydt = [x3, (-B * x3 - k * x2 + funcError) / M]
+    #     return dydt
+
+    def F(t, y):
+        # y[0] = possition
+        # y[1] = velocity
+        # y[2] = integral of position
+        errorr = u - y[0]
+        funcError = funcError = func.evalFunction(errorr, y[1], y[2], finalString)
+
+        yd_0 = y[1]
+        yd_1 = (-B * y[1] - k * y[0] + funcError)/ M
+        yd_2 = y[0]
+
+        return [yd_0, yd_1, yd_2]
+            
+    t_eval = np.arange(0, 5.01, 0.01) 
+    sol = solve_ivp(F, [0, 5], [0.0, 0.0, 0.0], t_eval=t_eval)
+    
 
     mengaFunc = 'np.tanh(np.tanh(np.tanh(np.tanh(x_0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
 
-    def odeMenga(y, t):
-        x2, x3 = y  # x2 == possition , x3 == velocity
-        error = u - x2
-        funcError = func.evalFunctionOneVariable(error, mengaFunc)
-        dydt = [x3, (-B * x3 - k * x2 + funcError) / M]
-        return dydt
 
-    sol = odeint(ode, y0, t)
+    def F_Menga(t, y):
+        # y[0] = possition
+        # y[1] = velocity
+        # y[2] = integral of position
+        errorr = u - y[0]
+        funcError = funcError = func.evalFunction(errorr, y[1], y[2], mengaFunc)
 
-    solMenga = odeint(odeMenga, y0, t)
+        yd_0 = y[1]
+        yd_1 = (-B * y[1] - k * y[0] + funcError)/ M
+        yd_2 = y[0]
+
+        return [yd_0, yd_1, yd_2]
+    
+    solMenga = solve_ivp(F_Menga, [0, 5], [0.0, 0.0, 0.0], t_eval=t_eval)
+    # def odeMenga(y, t):
+    #     x2, x3 = y  # x2 == possition , x3 == velocity
+    #     error = u - x2
+    #     funcError = func.evalFunctionOneVariable(error, mengaFunc)
+    #     dydt = [x3, (-B * x3 - k * x2 + funcError) / M]
+    #     return dydt
+
+    # # sol = odeint(ode, y0, t)
+
+    # solMenga = odeint(odeMenga, y0, t)
     controlingEffort = []
     mengaControlingEffort = []
-    for i in sol[:, 0]:
+    for i in range(len(sol.y.T[:, 0])):
         error = u - i
-
-        funcError = func.evalFunction(error, finalString)
+        xDot = sol.y.T[i][1]
+        xIntegral=sol.y.T[i][2]
+        funcError = func.evalFunction(error, xDot, xIntegral, finalString)
         controlingEffort.append(funcError)
-
-    for i in solMenga[:, 0]:
-        errorMenga = u - i
-        funcErrorMenga = func.evalFunctionOneVariable(errorMenga, mengaFunc)
+    
+    for i in range(len(solMenga.y.T[:, 0])):
+        error = u - i
+        xDot = solMenga.y.T[i][1]
+        xIntegral=solMenga.y.T[i][2]
+        funcErrorMenga = func.evalFunction(error, xDot, xIntegral, mengaFunc)
         mengaControlingEffort.append(funcErrorMenga)
+
+    
     firstCost = 0
     for i in controlingEffort:
         firstCost = firstCost + abs(i) / len(controlingEffort)
@@ -55,11 +94,11 @@ def solveAndPlot(sstring):
         firstCostMenga = firstCostMenga + abs(i) / len(mengaControlingEffort)
 
     integralArray = []
-    for i in sol[:, 0]:
+    for i in sol.y.T[:, 0]:
         integralArray.append(abs(1.0 - i))
 
     integralArrayMenga = []
-    for i in solMenga[:, 0]:
+    for i in solMenga.y.T[:, 0]:
         integralArrayMenga.append(abs(1.0 - i))
 
     secondCost = 0
@@ -74,7 +113,7 @@ def solveAndPlot(sstring):
     vibration = 0
     vibPos = False
     invalidVib = True
-    for i in sol[:, 0]:
+    for i in sol.y.T[:, 0]:
         if vibPos == False:
             if i > 1.02:
                 vibPos = True
@@ -93,7 +132,7 @@ def solveAndPlot(sstring):
 
     vibrationMenga = 0
     vibPosMenga = False
-    for i in solMenga[:, 0]:
+    for i in solMenga.y.T[:, 0]:
         if vibPosMenga == False:
             if i > 1.02:
                 vibPosMenga = True
@@ -123,8 +162,8 @@ def solveAndPlot(sstring):
     print('menga final cost: ' + str(mengaFullCost))
     print('result final cost: ' + str(resultFullCost))
 
-    plt.plot(t, sol[:, 0], 'b', label='x(t) - rasa')
-    plt.plot(t, solMenga[:, 0], 'g', label='x(t) - manga')
+    plt.plot(t_eval, sol.y.T[:, 0], 'b', label='x(t) - rasa')
+    plt.plot(t_eval, solMenga.y.T[:, 0], 'g', label='x(t) - manga')
     plt.title(finalString)
     plt.legend(loc='best')
     plt.xlabel('t')
@@ -134,8 +173,8 @@ def solveAndPlot(sstring):
     plt.savefig("0001plot_Position.png")
     plt.close()
 
-    plt.plot(t, sol[:, 1], 'b', label='x(t) - rasa')
-    plt.plot(t, solMenga[:, 1], 'g', label='x(t) - manga')
+    plt.plot(t_eval, sol.y.T[:, 1], 'b', label='x(t) - rasa')
+    plt.plot(t_eval, solMenga.y.T[:, 1], 'g', label='x(t) - manga')
     plt.title(finalString)
     plt.legend(loc='best')
     plt.xlabel('t')
@@ -144,8 +183,8 @@ def solveAndPlot(sstring):
     plt.savefig("001plot_Velocity.png")
     plt.close()
 
-    plt.plot(t, controlingEffort, 'b', label='x(t) - rasa')
-    plt.plot(t, mengaControlingEffort, 'g', label='x(t) - manga')
+    plt.plot(t_eval, controlingEffort, 'b', label='x(t) - rasa')
+    plt.plot(t_eval, mengaControlingEffort, 'g', label='x(t) - manga')
     plt.title(finalString)
     plt.legend(loc='best')
     plt.xlabel('t')

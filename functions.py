@@ -51,11 +51,13 @@ def sigmoid(input):
     return result
 
 
-def evalFunction(a, b, function):
+def evalFunction(a, b, c, function):
     if 'x_0' in function:
         x_0 = a
     if 'x_1' in function:
         x_1 = b
+    if 'x_2' in function:
+        x_2 = c
 
     # result = sp.N(eval(function))
     result = eval(function)
