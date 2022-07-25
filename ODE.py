@@ -33,7 +33,7 @@ def solveAndPlot(sstring):
 
         yd_0 = y[1]
         yd_1 = (-B * y[1] - k * y[0] + funcError)/ M
-        yd_2 = y[0]
+        yd_2 = 1-y[0]
 
         return [yd_0, yd_1, yd_2]
             
@@ -53,7 +53,7 @@ def solveAndPlot(sstring):
 
         yd_0 = y[1]
         yd_1 = (-B * y[1] - k * y[0] + funcError)/ M
-        yd_2 = y[0]
+        yd_2 = 1-y[0]
 
         return [yd_0, yd_1, yd_2]
     
