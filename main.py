@@ -135,9 +135,11 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                 f.seek(0)
                 finalContent = newContent + content
                 f.write(finalContent)
-                f.close()    
-        for i in range(n):  # process each particle
-
+                f.close()   
+                
+ 
+        for i in range(20,n):  # process each particle
+            
             # compute new velocity of curr particle
             for k in range(dim):
                 r1 = rnd.random()  # randomizations
@@ -177,6 +179,55 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
             if swarm[i].fitness < best_swarm_fitnessVal:
                 best_swarm_fitnessVal = swarm[i].fitness
                 best_swarm_pos = copy.copy(swarm[i].position)
+
+        # numbers optimization ////////////////////////////////////////////////////////////////////////////////////
+        for i in range(20):
+            swarm[i].position = copy.copy(best_swarm_pos)
+            
+        for i in range(20):  # process each particle
+            
+            # compute new velocity of curr particle
+            for k in range(15,30):
+                r1 = rnd.random()  # randomizations
+                r2 = rnd.random()
+
+                swarm[i].velocity[k] = (
+                        (w * swarm[i].velocity[k]) +
+                        (c1 * r1 * (swarm[i].best_part_pos[k] - swarm[i].position[k])) +
+                        (c2 * r2 * (best_swarm_pos[k] - swarm[i].position[k]))
+                )
+
+                # if velocity[k] is not in [minx, max]
+                if swarm[i].velocity[k] < minx:
+                    swarm[i].velocity[k] = minx
+                elif swarm[i].velocity[k] > maxx:
+                    swarm[i].velocity[k] = maxx
+                # then clip it
+
+            # compute new position using new velocity
+            for k in range(15,30):
+                swarm[i].position[k] += swarm[i].velocity[k]
+
+                if swarm[i].position[k] < minx:
+                    swarm[i].position[k] = 2 * minx - swarm[i].position[k]
+                elif swarm[i].position[k] > maxx:
+                    swarm[i].position[k] = 2 * maxx - swarm[i].position[k]
+
+            # compute fitness of new position
+            swarm[i].fitness = fitness(swarm[i].position)
+
+            # is new position a new best for the particle?
+            if swarm[i].fitness < swarm[i].best_part_fitnessVal:
+                swarm[i].best_part_fitnessVal = swarm[i].fitness
+                swarm[i].best_part_pos = copy.copy(swarm[i].position)
+
+            # is new position a new best overall?
+            if swarm[i].fitness < best_swarm_fitnessVal:
+                best_swarm_fitnessVal = swarm[i].fitness
+                best_swarm_pos = copy.copy(swarm[i].position)
+
+        
+        # end numbers optimization ////////////////////////////////////////////////////////////////////////////////////
 
         # new randomization///////////////////////////////////////////////////////////////////////////////////////
         # randomizing several particles

@@ -53,20 +53,20 @@ def mainCost(position):
     # f.write(finalContent)
     # f.close()    
 
-    if True:  #'x_0' in finalString or 'x_1' in finalString:
+    if 'x_0' in finalString or 'x_2' in finalString:
         try:
             # if 'x0' in theString:
             #     theString += ''
             # else:
             #     theString += '-x0*5000'
-
             result=100000.0  # initiate cost function
             # ODE solution start ////////////////////////////////////////////////////////////////////////////////
             M = 1.0
             B = 10.0
             k = 20.0
             u = 1.0
-            t_eval = np.arange(0, 5.01, 0.01)
+            # t_eval = np.arange(0, 5.01, 0.01)
+            t_eval=[0,0.01,0.05,1.0,1.5,2.5,5]
 
             # def ode(y, t):
             #     x1, x2 = y  # x1 == possition , x2 == velocity
@@ -94,7 +94,7 @@ def mainCost(position):
                 return [yd_0, yd_1, yd_2]
             
             sol = solve_ivp(F, [0, 5], [0.0, 0.0, 0.0], t_eval=t_eval)
-
+            
             controlingEffort = []
 
             for i in range(len(sol.y.T[:, 0])):
