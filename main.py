@@ -270,7 +270,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
         #             best_swarm_fitnessVal = swarm[i].fitness
         #             best_swarm_pos = copy.copy(swarm[i].position)
 
-        if Iter % 1000 == 0 or Iter < 30:
+        if Iter % 200 == 0 or Iter < 30:
             print(functions.colored(255, 50, 50, "Big Randomization Happened, " + "iteration = " + str(Iter)))
             for i in range(n):
                 for k in range(dim):

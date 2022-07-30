@@ -53,7 +53,7 @@ def mainCost(position):
     # f.write(finalContent)
     # f.close()    
 
-    if 'x_0' in finalString or 'x_2' in finalString:
+    if 'x_0' in finalString or 'x_2' in finalString or 'x_1' in finalString:
         try:
             # if 'x0' in theString:
             #     theString += ''
@@ -149,8 +149,8 @@ def mainCost(position):
                 thirdCost = vibration
 
             maxOfControllingEffort=max(max(controlingEffort),abs(min(controlingEffort)))
-            # result = 10 * (secondCost + 0.001 * firstCost + 0.01 * maxOfControllingEffort)
-            result = secondCost
+            result = 10 * (secondCost + 0.001 * firstCost + 0.01 * maxOfControllingEffort)
+            # result = secondCost
             mainFunc = finalString  # eval(finalString)
         except:
             result = 10000.0

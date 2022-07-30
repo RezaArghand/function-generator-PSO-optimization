@@ -9,9 +9,13 @@ M = 1
 B = 10
 k = 20
 u = 1
-x_0 = sp.symbols("x_0") # position
-x_1 = sp.symbols("x_1") # velocity
-x_3 = sp.symbols("x_3") # integral
+x_0 = sp.symbols("x_0")  # position
+x_1 = sp.symbols("x_1")  # velocity
+x_2 = sp.symbols("x_2")  # integral
+t_eval = np.arange(0, 5.0001, 0.0001)
+
+
+
 
 def solveAndPlot(sstring):
     finalString = sstring
@@ -29,35 +33,34 @@ def solveAndPlot(sstring):
         # y[1] = velocity
         # y[2] = integral of position
         errorr = u - y[0]
-        funcError = funcError = func.evalFunction(errorr, y[1], y[2], finalString)
+        funcError = func.evalFunction(errorr, y[1], y[2], finalString)
 
         yd_0 = y[1]
-        yd_1 = (-B * y[1] - k * y[0] + funcError)/ M
+        yd_1 = (-B * y[1] - k * y[0] + funcError) / M
         yd_2 = 1-y[0]
 
         return [yd_0, yd_1, yd_2]
-            
-    t_eval = np.arange(0, 5.01, 0.01) 
+
+
     sol = solve_ivp(F, [0, 5], [0.0, 0.0, 0.0], t_eval=t_eval)
-    
 
     mengaFunc = 'np.tanh(np.tanh(np.tanh(np.tanh(x_0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
-
 
     def F_Menga(t, y):
         # y[0] = possition
         # y[1] = velocity
         # y[2] = integral of position
         errorr = u - y[0]
-        funcError = funcError = func.evalFunction(errorr, y[1], y[2], mengaFunc)
+        funcError = func.evalFunction(errorr, y[1], y[2], mengaFunc)
 
         yd_0 = y[1]
-        yd_1 = (-B * y[1] - k * y[0] + funcError)/ M
-        yd_2 = 1-y[0]
+        yd_1 = (-B * y[1] - k * y[0] + funcError) / M
+        yd_2 = y[0]
 
         return [yd_0, yd_1, yd_2]
-    
+
     solMenga = solve_ivp(F_Menga, [0, 5], [0.0, 0.0, 0.0], t_eval=t_eval)
+
     # def odeMenga(y, t):
     #     x2, x3 = y  # x2 == possition , x3 == velocity
     #     error = u - x2
@@ -71,20 +74,19 @@ def solveAndPlot(sstring):
     controlingEffort = []
     mengaControlingEffort = []
     for i in range(len(sol.y.T[:, 0])):
-        error = u - i
+        error = u - sol.y.T[i][0]
         xDot = sol.y.T[i][1]
-        xIntegral=sol.y.T[i][2]
+        xIntegral = sol.y.T[i][2]
         funcError = func.evalFunction(error, xDot, xIntegral, finalString)
         controlingEffort.append(funcError)
-    
+
     for i in range(len(solMenga.y.T[:, 0])):
-        error = u - i
+        error = u - solMenga.y.T[i][0]
         xDot = solMenga.y.T[i][1]
-        xIntegral=solMenga.y.T[i][2]
+        xIntegral = solMenga.y.T[i][2]
         funcErrorMenga = func.evalFunction(error, xDot, xIntegral, mengaFunc)
         mengaControlingEffort.append(funcErrorMenga)
 
-    
     firstCost = 0
     for i in controlingEffort:
         firstCost = firstCost + abs(i) / len(controlingEffort)
@@ -147,20 +149,28 @@ def solveAndPlot(sstring):
     else:
         thirdCostMenga = vibrationMenga
 
-    mengaFullCost = secondCostMenga + thirdCostMenga
-    resultFullCost = secondCost + thirdCost
 
+    maxOfControllingEffortMenga = max(max(mengaControlingEffort), abs(min(mengaControlingEffort)))
+    maxOfControllingEffort = max(max(controlingEffort), abs(min(controlingEffort)))
+    mengaFullCost = 10 * (secondCostMenga + 0.001 * firstCostMenga + 0.01 * maxOfControllingEffortMenga)
+    resultFullCost = 10 * (secondCost + 0.001 * firstCost + 0.01 * maxOfControllingEffort)
+    print(np.size(t_eval))
+    print(np.size(sol.y.T[:, 0]))
     print('menga cost: ' + str(secondCostMenga))
     print('result cost: ' + str(secondCost))
     print('..........................................')
     print('menga controlling effort cost: ' + str(firstCostMenga))
     print('result controlling effort cost: ' + str(firstCost))
+    # print('..........................................')
+    # print('menga vibration cost: ' + str(thirdCostMenga))
+    # print('result vibration cost: ' + str(thirdCost))
+    # print('..........................................')
     print('..........................................')
-    print('menga vibration cost: ' + str(thirdCostMenga))
-    print('result vibration cost: ' + str(thirdCost))
+    print('menga max of controlling effort: ' + str(maxOfControllingEffortMenga))
+    print('result max of controlling effort: ' + str(maxOfControllingEffort))
     print('..........................................')
     print('menga final cost: ' + str(mengaFullCost))
-    print('result final cost: ' + str(resultFullCost))
+    print('rasa final cost: ' + str(resultFullCost))
 
     plt.plot(t_eval, sol.y.T[:, 0], 'b', label='x(t) - rasa')
     plt.plot(t_eval, solMenga.y.T[:, 0], 'g', label='x(t) - manga')
@@ -193,7 +203,8 @@ def solveAndPlot(sstring):
     plt.savefig("01plot_CotrollingEffort.png")
     plt.close()
 
-
-# menga = 'np.tanh(np.tanh(np.tanh(np.tanh(x0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
-rasa = '2929.53/np.sign(x_1+x_0)'
+# menga = 'np.tanh(np.tanh(np.tanh(np.tanh(x_0)*81.6497)*8)*abs(np.sqrt(np.pi)* np.log(6)))*np.pi*81.6497'
+rasa = '2804.24*x_0 - 58.69*x_1/5755.05**x_2'
 solveAndPlot(rasa)
+'2804.24*x_0 - 58.69*x_1/5755.05**x_2'
+'np.tan(-3432.14*np.sign(x_0 -2543.44))'
