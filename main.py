@@ -12,7 +12,6 @@ import parameters
 import parameters as Par
 import functions as fun
 import matplotlib.pyplot as plt
-import plotter as plotter
 
 start_time = time()
 
