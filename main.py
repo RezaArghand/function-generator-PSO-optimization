@@ -183,7 +183,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
         for i in range(20):
             swarm[i].position = copy.copy(best_swarm_pos)
             
-        for i in range(200):  # process each particle
+        for i in range(50):  # process each particle
             
             # compute new velocity of curr particle
             for k in range(15,30):
