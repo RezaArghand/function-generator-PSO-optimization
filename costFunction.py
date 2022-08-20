@@ -65,8 +65,8 @@ def mainCost(position):
             B = 10.0
             k = 20.0
             u = 1.0
-            # t_eval = np.arange(0, 5.01, 0.01)
-            t_eval=[0,0.01,0.05,1.0,1.5,2.5,5]
+            t_eval = np.arange(0, 5.01, 0.01)
+            
 
             # def ode(y, t):
             #     x1, x2 = y  # x1 == possition , x2 == velocity
@@ -152,6 +152,8 @@ def mainCost(position):
             result = 10 * (secondCost + 0.001 * firstCost + 0.01 * maxOfControllingEffort)
             # result = secondCost
             mainFunc = finalString  # eval(finalString)
+            tend=time.time()
+            print(tend-tStart)
         except:
             result = 10000.0
             mainFunc = "error(1) : " + finalString
