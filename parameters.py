@@ -4,7 +4,7 @@ import numpy as np
 import functions as func
 
 # parameters of PSO optimization algorithm
-number_of_particles = 500  # particle count
+number_of_particles = 100  # particle count
 number_randomize_particles_fullArea = int(np.floor(0.2 * number_of_particles))
 
 damping_rate_W = 0.9  # inertia damper
@@ -23,9 +23,9 @@ max_iteration_number = 80000  # max iteration
 #            'np.tanh(x_ 0)',
 #            'np.sin(x_1 ', 'np.exp(x_1 ', 'np.sqrt(x_1 ', 'np.floor(x_1 ', 'np.tan(x_1 ', 'np.sign(x_1 ', 'np.tanh(',
 #            'np.tanh(x_1) ']
-funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x_0 ', 'x_1 ','x_2', 'np.tan(', 'np.sign(','np.tanh(']
+funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x_0 ', 'x_1 ','x_2', 'np.sign(','np.tanh(','np.tan(']
 
-operators = ['*', '/', '+', '-', '**', ')', '(']
+operators = ['*', '+', '/', '**', '-', ')', '(']
 
 # maxVariable, finalLib = func.normalizeLength(funcLib, operators)
 finalLib = (funcLib + operators)

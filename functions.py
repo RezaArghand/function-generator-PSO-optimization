@@ -63,6 +63,20 @@ def evalFunction(a, b, c, function):
     result = eval(function)
     return result
 
+def isDevidableByZero(function):
+    try:
+        if 'x_0' in function:
+            x_0 = 0
+        if 'x_1' in function:
+            x_1 = 0
+        if 'x_2' in function:
+            x_2 = 0
+
+        # result = sp.N(eval(function))
+        result = eval(function)
+        return True
+    except:
+        return False
 
 def evalFunctionOneVariable(a, function):
     x_0 = a

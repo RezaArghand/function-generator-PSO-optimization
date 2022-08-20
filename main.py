@@ -111,43 +111,47 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
 
         # after every 10 iterations
         # print iteration number and best fitness value so far
-        if Iter % 1 == 0:
-                print("Iter = " + str(Iter) + " best fitness = %.15f" % best_swarm_fitnessVal)
-                # print(best_swarm_pos)
-                best_Possition = [math.floor(i) for i in best_swarm_pos]
-                realBestPosition = best_swarm_pos
-                # plotter.solveAndPlot(costF.bestFunc(best_swarm_pos))
-                print(best_Possition)
-                print('y = ' + costF.bestFunc(best_swarm_pos))
-                if Iter < 2:
-                    k = open("00results.txt", "w")
-                    k.write("")
-                    k.close()
-                    # M = open("allStrings.txt", "w")
-                    # M.write("")
-                    # M.close()
-                f = open("00results.txt", "r+")
+        if Iter % 5 == 0:
+            print("Iter = " + str(Iter) + " best fitness = %.15f" %
+                  best_swarm_fitnessVal)
+            # print(best_swarm_pos)
+            best_Possition = [math.floor(i) for i in best_swarm_pos]
+            realBestPosition = best_swarm_pos
+            # plotter.solveAndPlot(costF.bestFunc(best_swarm_pos))
+            print(best_Possition)
+            print('y = ' + costF.bestFunc(best_swarm_pos))
+            if Iter < 2:
+                k = open("00results.txt", "w")
+                k.write("")
+                k.close()
 
-                newContent=("\n iteration => %s \n best cost => %s \n best position => %s \n best function => %s \n" % (
-                    str(Iter), best_swarm_fitnessVal, str(best_Possition), costF.bestFunc(best_swarm_pos)))
-                content = f.read()
-                f.seek(0)
-                finalContent = newContent + content
-                f.write(finalContent)
-                f.close()   
-                
- 
-        for i in range(20,n):  # process each particle
-            
+                V = open("badFunctions.txt", "w")
+                V.write("")
+                V.close()
+                # M = open("allStrings.txt", "w")
+                # M.write("")
+                # M.close()
+            f = open("00results.txt", "r+")
+
+            newContent = ("\n iteration => %s \n best cost => %s \n best position => %s \n best function => %s \n" % (
+                str(Iter), best_swarm_fitnessVal, str(best_Possition), costF.bestFunc(best_swarm_pos)))
+            content = f.read()
+            f.seek(0)
+            finalContent = newContent + content
+            f.write(finalContent)
+            f.close()
+
+        for i in range(20, n):  # process each particle
+
             # compute new velocity of curr particle
             for k in range(dim):
                 r1 = rnd.random()  # randomizations
                 r2 = rnd.random()
 
                 swarm[i].velocity[k] = (
-                        (w * swarm[i].velocity[k]) +
-                        (c1 * r1 * (swarm[i].best_part_pos[k] - swarm[i].position[k])) +
-                        (c2 * r2 * (best_swarm_pos[k] - swarm[i].position[k]))
+                    (w * swarm[i].velocity[k]) +
+                    (c1 * r1 * (swarm[i].best_part_pos[k] - swarm[i].position[k])) +
+                    (c2 * r2 * (best_swarm_pos[k] - swarm[i].position[k]))
                 )
 
                 # if velocity[k] is not in [minx, max]
@@ -182,18 +186,18 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
         # numbers optimization ////////////////////////////////////////////////////////////////////////////////////
         for i in range(20):
             swarm[i].position = copy.copy(best_swarm_pos)
-            
+
         for i in range(50):  # process each particle
-            
+
             # compute new velocity of curr particle
-            for k in range(15,30):
+            for k in range(15, 30):
                 r1 = rnd.random()  # randomizations
                 r2 = rnd.random()
 
                 swarm[i].velocity[k] = (
-                        (w * swarm[i].velocity[k]) +
-                        (c1 * r1 * (swarm[i].best_part_pos[k] - swarm[i].position[k])) +
-                        (c2 * r2 * (best_swarm_pos[k] - swarm[i].position[k]))
+                    (w * swarm[i].velocity[k]) +
+                    (c1 * r1 * (swarm[i].best_part_pos[k] - swarm[i].position[k])) +
+                    (c2 * r2 * (best_swarm_pos[k] - swarm[i].position[k]))
                 )
 
                 # if velocity[k] is not in [minx, max]
@@ -204,7 +208,7 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                 # then clip it
 
             # compute new position using new velocity
-            for k in range(15,30):
+            for k in range(15, 30):
                 swarm[i].position[k] += swarm[i].velocity[k]
 
                 if swarm[i].position[k] < minx:
@@ -225,7 +229,6 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
                 best_swarm_fitnessVal = swarm[i].fitness
                 best_swarm_pos = copy.copy(swarm[i].position)
 
-        
         # end numbers optimization ////////////////////////////////////////////////////////////////////////////////////
 
         # new randomization///////////////////////////////////////////////////////////////////////////////////////
@@ -269,11 +272,13 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
         #             best_swarm_fitnessVal = swarm[i].fitness
         #             best_swarm_pos = copy.copy(swarm[i].position)
 
-        if Iter % 200 == 0 or Iter < 30:
-            print(functions.colored(255, 50, 50, "Big Randomization Happened, " + "iteration = " + str(Iter)))
+        if Iter % 1000 == 0 or Iter < 50:
+            print(functions.colored(255, 50, 50,
+                  "Big Randomization Happened, " + "iteration = " + str(Iter)))
             for i in range(n):
                 for k in range(dim):
-                    swarm[i].position[k] = random.randint(minx, maxx) * random.random()
+                    swarm[i].position[k] = random.randint(
+                        minx, maxx) * random.random()
         # w = parameters.W
         # swarm[i].velocity[k] = random.randint(minx, maxx)
         #     # for k in range(dim):
@@ -352,7 +357,8 @@ print(bestFunction)
 print()
 end_time = time()
 full_time = end_time - start_time
-print("The time consumed = " + str(full_time // 60) + " minutes " + str(full_time % 60) + " seconds ")
+print("The time consumed = " + str(full_time // 60) +
+      " minutes " + str(full_time % 60) + " seconds ")
 print()
 print()
 iterP = iterPlot[10:]
