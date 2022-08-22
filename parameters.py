@@ -23,7 +23,7 @@ max_iteration_number = 80000  # max iteration
 #            'np.tanh(x_ 0)',
 #            'np.sin(x_1 ', 'np.exp(x_1 ', 'np.sqrt(x_1 ', 'np.floor(x_1 ', 'np.tan(x_1 ', 'np.sign(x_1 ', 'np.tanh(',
 #            'np.tanh(x_1) ']
-funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x_0 ', 'x_1 ','x_2', 'np.sign(','np.tanh(','np.tan(']
+funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x_0 ', 'x_1 ', 'np.sign(','np.tanh(','np.tan(']
 
 operators = ['*', '+', '/', '**', '-', ')', '(']
 
