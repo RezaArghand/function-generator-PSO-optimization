@@ -54,7 +54,7 @@ def mainCost(position):
     # f.write(finalContent)
     # f.close()    
 
-    if ('x_0' in finalString or 'x_2' in finalString or 'x_1' in finalString):
+    if func.isDevidableByZero(finalString) and ('x_0' in finalString or 'x_2' in finalString or 'x_1' in finalString):
         try:
             
             # if 'x0' in theString:
