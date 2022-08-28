@@ -177,8 +177,8 @@ def mainCost(position):
                     thirdCost = vibration
 
                 maxOfControllingEffort=max(max(controlingEffort),abs(min(controlingEffort)))
-                # result = 10 * (position_cost + 0.001 * effort_cost + 0.01 * maxOfControllingEffort)
-                result = 100 * position_cost
+                result = (10 * position_cost + 0.01 * effort_cost + 0.05 * maxOfControllingEffort)
+                # result = 100 * position_cost
                 mainFunc = finalString  # eval(finalString)
                 
                 if(tend-tStart>10.0):
