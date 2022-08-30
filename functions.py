@@ -7,6 +7,10 @@ from matplotlib import pyplot as plt
 import itertools
 
 
+x_0 = sp.symbols("x_0") # position
+x_1 = sp.symbols("x_1") # velocity
+x_2 = sp.symbols("x_2") # integral
+
 def isBalanced(myStr):
     open_list = ["[", "{", "("]
     close_list = ["]", "}", ")"]
@@ -157,6 +161,7 @@ def mamalSorting(position):
 def simplifyFunction(functionString):
     x_0 = sp.symbols("x_0")
     x_1 = sp.symbols('x_1')
+    x_2 = sp.symbols('x_2')
     np.tanh = sp.symbols("np.tanh")
     result = sp.simplify(eval(functionString))
     return result

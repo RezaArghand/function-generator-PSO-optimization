@@ -111,9 +111,9 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
 
         # after every 10 iterations
         # print iteration number and best fitness value so far
-        if Iter % 5 == 0:
+        if Iter % 1 == 0:
             print("Iter = " + str(Iter) + " best fitness = %.15f" %
-                  best_swarm_fitnessVal)
+                best_swarm_fitnessVal)
             # print(best_swarm_pos)
             best_Possition = [math.floor(i) for i in best_swarm_pos]
             realBestPosition = best_swarm_pos
@@ -272,9 +272,9 @@ def pso(fitness, max_iter, n, dim, minx, maxx, w, c1, c2, satisfaction_fitness):
         #             best_swarm_fitnessVal = swarm[i].fitness
         #             best_swarm_pos = copy.copy(swarm[i].position)
 
-        if Iter % 1000 == 0 or Iter < 50:
+        if Iter % 500 == 0 or Iter < 20:
             print(functions.colored(255, 50, 50,
-                  "Big Randomization Happened, " + "iteration = " + str(Iter)))
+                "Big Randomization Happened, " + "iteration = " + str(Iter)))
             for i in range(n):
                 for k in range(dim):
                     swarm[i].position[k] = random.randint(

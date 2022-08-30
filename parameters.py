@@ -4,12 +4,12 @@ import numpy as np
 import functions as func
 
 # parameters of PSO optimization algorithm
-number_of_particles = 200  # particle count
+number_of_particles = 2000  # particle count
 number_randomize_particles_fullArea = int(np.floor(0.2 * number_of_particles))
 
 damping_rate_W = 0.9  # inertia damper
 w_reset_iteration = 1500  # the iteration that w is reset
-bound_of_realNumber = 10000
+bound_of_realNumber = 5000
 satisfaction_cost_number = 0.015  # satisfaction point
 W = 0.9  # inertia
 C1 = 1.6  # cognitive (particle)
@@ -23,7 +23,7 @@ max_iteration_number = 80000  # max iteration
 #            'np.tanh(x_ 0)',
 #            'np.sin(x_1 ', 'np.exp(x_1 ', 'np.sqrt(x_1 ', 'np.floor(x_1 ', 'np.tan(x_1 ', 'np.sign(x_1 ', 'np.tanh(',
 #            'np.tanh(x_1) ']
-funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x_0 ', 'x_1 ', 'np.sign(','np.tanh(','np.tan(']
+funcLib = ['', 'np.sin(', 'np.exp(', 'np.sqrt(', 'np.floor(', 'x_0 ', 'x_1 ', 'x_2', 'np.sign(','np.tanh(','np.tan(']
 
 operators = ['*', '+', '/', '**', '-', ')', '(']
 
